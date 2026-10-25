@@ -1,19 +1,34 @@
 {
-  "kind": "illustrated walkthrough from verified saved outputs",
+  "kind": "edited product tour from actual browser screenshots, with an illustrated architecture card",
   "screen_recording": false,
+  "actual_ui_captures": true,
   "audio": false,
   "snapshot_date": "2026-10-25",
   "dimensions": [
     1280,
-    800
+    840
   ],
-  "gif_seconds": 25,
-  "video_seconds": 75,
+  "gif_seconds": 32,
+  "video_seconds": 32,
+  "fps": 10,
+  "scenes": [
+    "Explore",
+    "Track skills",
+    "Compare growth",
+    "Ask + inspect",
+    "Verify source",
+    "Built on Databricks"
+  ],
+  "editing": "Cropped/resized captures; editorial captions, reading pauses, dissolves and animated progress. No invented cursor actions.",
+  "capture_sha256": {
+    "01-overview.jpg": "849ae350522744949c1769a8f4fa756c56b728f44e30694e8a47f31c93d0bb5b",
+    "02-skills.jpg": "a81e04f557c5c8e8dbc35bbe02299416772c57976c969aac4569077bc48626ba",
+    "03-growth.jpg": "c64bef39a792f507abd8b086bf5f23ce40b8d14b1bc9686f583e4d6922e35bb7",
+    "05-sql-wide.jpg": "43795726e038b86998964a0dcc26fa630963ba5df865ada57a4997644c69bfb3",
+    "06-source.jpg": "40f2caaf7f5e534669a66594fd2dfb4bc07bfaed36232c3a0ee64208473aa784"
+  },
   "source_sha256": {
     "quality/full-extraction-results.json": "8313243b4f474cfe0f2344cc1f39281e6e3cacea4b7c42203515549c4bd153c2",
-    "quality/skill-growth-results.json": "e8d76785dc0a7f8b5292da24b964e7e05c9b729f2e2cb39e52c252473d2be70b",
-    "quality/app-live-results.json": "90a840dddfbd08dee9015ecb6e839b0a9a4ed8fa555a6e3b799eaa3c0dba44fc",
-    "quality/app-chat-results.json": "6a959f05117a6c5fc51d35e76c8d309dd105cc81c5ee902fc0c47955c23e8557",
-    "quality/model-comparison-results.json": "b1e27cf82a7524b9bff06340d1a57f5bf8ff880aeab9b55effe39a0153667eb6"
+    "quality/skill-growth-results.json": "e8d76785dc0a7f8b5292da24b964e7e05c9b729f2e2cb39e52c252473d2be70b"
   }
 }

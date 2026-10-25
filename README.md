@@ -2,19 +2,21 @@
 
 **AI-powered tech hiring analytics, built end to end on Databricks.**
 
+[![Tests](https://github.com/Sufi-to/hn-hiring-observatory/actions/workflows/tests.yml/badge.svg)](https://github.com/Sufi-to/hn-hiring-observatory/actions/workflows/tests.yml)
+
 Turn **40,065 Hacker News posts** into an explorable history of skills,
 compensation, seniority, work policies and countries. Compare trends, inspect the
 original advertisements, or ask questions in plain English and see the SQL behind
 the answer.
 
-[25-second walkthrough](docs/assets/walkthrough.gif) ·
-[75-second captioned video](docs/assets/walkthrough.mp4) ·
+[32-second app tour](docs/assets/walkthrough.gif) ·
+[Captioned MP4](docs/assets/walkthrough.mp4) ·
 [Live application — workspace access required](https://hn-hiring-observatory-7474647140884875.aws.databricksapps.com)
 
-![Illustrated walkthrough: overview, skill-growth comparison, natural-language SQL, source links and the Databricks pipeline.](docs/assets/walkthrough.gif)
+![Actual app tour: hiring charts, skill trends, quarter-over-quarter growth, a plain-English question with returned SQL and results, and an original HN advertisement.](docs/assets/walkthrough.gif)
 
-*Illustrated walkthrough using verified saved outputs; the layouts explain the
-workflow. [Static preview](docs/assets/overview.png) · [Media provenance and actual-UI recording guide](docs/demo.md).*
+*Edited tour using real app captures, with captions, transitions and an illustrated
+architecture card. [Static preview](docs/assets/overview.png) · [Media provenance and recording guide](docs/demo.md).*
 
 | Historical coverage | Processed source posts | Classified hiring ads | Extraction models compared |
 | --- | ---: | ---: | ---: |
@@ -121,6 +123,27 @@ python3 -m venv .venv
 Open **http://127.0.0.1:8501**. The UI runs locally; queries and model calls run in
 Databricks. See the [operations guide](docs/operations.md) for authentication,
 ingestion, extraction, validation and deployment commands.
+
+To check the application without workspace access or model calls:
+
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+## Explore the source
+
+| Area | Start here |
+| --- | --- |
+| Application UI and charts | [Streamlit screens](app/app.py) · [Chart styling](app/style.css) |
+| Data access and chat | [Warehouse client and SQL validation](app/backend.py) · [Parameterized queries](app/queries.py) |
+| Historical ingestion | [HN ingestion notebook](notebooks/01_ingest_hn.py) |
+| Model comparison and extraction | [Five-model comparison](notebooks/04_compare_models.py) · [Full extraction](notebooks/05_extract_all_posts.py) |
+| Metrics and verification | [Skill-growth SQL](sql/fastest_growing_skills.sql) · [Saved quality reports](quality/) · [Automated tests](tests/) |
+| Deployment | [Databricks bundle](databricks.yml) · [App configuration](app/app.yaml) |
+| Demo media | [Tour builder](docs/build_demo.py) · [Captures and provenance](docs/demo.md) |
+
+[Contributing and development checks](CONTRIBUTING.md) explains how to make changes,
+run local tests and distinguish saved evidence from live workspace verification.
 
 ## Boundaries and next steps
 

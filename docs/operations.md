@@ -115,7 +115,7 @@ It checkpoints large yearly groups and retries failed rows;
 reruns reuse successful results matching the post hash, model and prompt hash.
 There is no recurring schedule.
 
-The output contract for the future application is `workspace.hnjob.post_attributes`:
+The application reads `workspace.hnjob.post_attributes`:
 one row per source post with skills, compensation ranges, seniority, remote policy,
 countries, source evidence, model provenance and a processing status. Post-level
 attributes do not represent individual vacancies or role-specific eligibility.

@@ -1,198 +1,197 @@
-"""Build clearly labeled illustrated demo media from verified saved outputs.
+"""Render an edited, captioned product tour from actual browser captures.
 
-No UI automation, account access, model calls or invented market data.
-Requires Pillow and FFmpeg. Run from any directory using the project's venv.
+Run with .venv/bin/python docs/build_demo.py. No account or model access.
+UI images stay unaltered apart from cropping/resizing; the final architecture
+card is an explanatory illustration. Transitions and pauses are edited.
 """
 import hashlib
 import json
+from functools import lru_cache
 from pathlib import Path
 import shutil
 import subprocess
+import tempfile
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/assets'
-W, H = 1280, 800
-BG, WHITE, INK, MUTED = '#F5F7FA', '#FFFFFF', '#192A35', '#637480'
-TEAL, ORANGE, LINE = '#247B83', '#D65A31', '#E1E7EC'
-STEPS = ['Overview', 'Skill growth', 'Ask + inspect SQL', 'Trace the source', 'Architecture']
+CAPTURES = OUT / 'captures'
+W, H, FPS = 1280, 840, 10
+BG, PANEL, INK = '#101F2B', '#192E3B', '#F2F6F8'
+MUTED, TEAL, ORANGE = '#A5BAC5', '#77D8C7', '#FA936C'
 FONT_DIR = Path('/usr/share/fonts/truetype/dejavu')
+DURATIONS = [5, 5, 6, 6, 6, 4]
+LABELS = ['Explore', 'Track skills', 'Compare growth', 'Ask + inspect', 'Verify source', 'Built on Databricks']
 
 
-def font(size, bold=False, mono=False):
-    name = 'DejaVuSansMono.ttf' if mono else 'DejaVuSans-Bold.ttf' if bold else 'DejaVuSans.ttf'
-    path = FONT_DIR / name
-    return ImageFont.truetype(str(path), size) if path.is_file() else ImageFont.load_default(size=size)
+@lru_cache(maxsize=64)
+def font(size, bold=False):
+    path = FONT_DIR / ('DejaVuSans-Bold.ttf' if bold else 'DejaVuSans.ttf')
+    return ImageFont.truetype(str(path), size)
 
 
-def text(draw, xy, value, size=24, fill=INK, bold=False, mono=False):
-    draw.text(xy, str(value), font=font(size, bold, mono), fill=fill)
+def text(draw, xy, value, size=20, fill=INK, bold=False):
+    draw.text(xy, str(value), font=font(size, bold), fill=fill)
 
 
-def box(draw, xy, fill=WHITE, outline=LINE, radius=18):
-    draw.rounded_rectangle(xy, radius=radius, fill=fill, outline=outline, width=1)
+def lines(draw, xy, values, size=34, fill=INK, bold=True, spacing=None):
+    x, y = xy
+    for line in values:
+        text(draw, (x, y), line, size, fill, bold)
+        y += spacing or int(size * 1.35)
 
 
-def base(index, title, subtitle, caption):
-    image = Image.new('RGB', (W, H), BG)
-    draw = ImageDraw.Draw(image)
-    text(draw, (55, 30), 'HN / OBSERVATORY', 25, bold=True)
-    box(draw, (788, 25, 1225, 67), fill='#E8EFF0', outline='#E8EFF0', radius=9)
-    text(draw, (807, 36), 'ILLUSTRATED · VERIFIED SAVED OUTPUTS', 15, TEAL, True)
-    draw.line((55, 91, 1225, 91), fill=LINE, width=2)
-    text(draw, (55, 115), f'0{index+1}  /  {STEPS[index].upper()}', 17, ORANGE, True)
-    text(draw, (55, 154), title, 37, bold=True)
-    text(draw, (55, 211), subtitle, 20, MUTED)
-    text(draw, (55, 685), caption, 18, MUTED)
-    draw.line((55, 729, 1225, 729), fill=LINE, width=2)
-    for i, label in enumerate(STEPS):
-        x = 55 + i * 238
-        draw.ellipse((x, 756, x+9, 765), fill=ORANGE if i == index else '#CAD5DC')
-        text(draw, (x+18, 749), label, 15, INK if i == index else MUTED, i == index)
-    return image, draw
+def screenshot(image, filename, crop):
+    source = Image.open(CAPTURES / filename).convert('RGB').crop(crop)
+    # Preserve the screenshot's aspect ratio, never redraw chart values or UI.
+    shot = ImageOps.contain(source, (826, 570), Image.Resampling.LANCZOS)
+    ImageDraw.Draw(image).rounded_rectangle((380, 112, 1232, 722), radius=16, fill='#F6F8FA')
+    d = ImageDraw.Draw(image)
+    for x, color in [(400, '#FA936C'), (418, '#E8C77B'), (436, '#77D8C7')]:
+        d.ellipse((x, 127, x+7, 134), fill=color)
+    text(d, (464, 122), 'HN HIRING OBSERVATORY  /  ACTUAL APP CAPTURE', 11, '#60717C', True)
+    image.paste(shot, (393 + (826-shot.width)//2, 147 + (570-shot.height)//2))
 
 
-def read(name):
-    return json.loads((ROOT / name).read_text())
+def scenes():
+    report = json.loads((ROOT/'quality/full-extraction-results.json').read_text())
+    growth = json.loads((ROOT/'quality/skill-growth-results.json').read_text())
+    lead = growth['results'][0]
+    assert lead['skill'] == 'rails' and lead['growth_percentage_points'] == '1.91'
+    assert int(report['checks']['coverage'][0]['successful_posts']) == 40065
+    definitions = [
+        (['Hiring signals,', 'from the', 'original posts.'],
+         ['40,065 processed posts.', '82 monthly HN threads.', 'One searchable history.'],
+         '01-overview.jpg', (245, 0, 1108, 715),
+         'LIVE DATA', 'Charts, filters and source links', 'Overview shown: Oct 2025–Sep 2026. Counts describe advertisements, not hires.'),
+        (['Follow the', 'changing', 'tech stack.'],
+         ['Compare Python,', 'TypeScript and Rust', 'as a share of hiring ads.'],
+         '02-skills.jpg', (245, 0, 1108, 760),
+         'TRACK PREVALENCE', 'Counts become comparable shares', 'Skills are extracted from whole posts. A single post can advertise several roles.'),
+        (['Which skills', 'are gaining', 'ground?'],
+         ['Q3 versus Q2 2026.', 'At least 20 mentions', 'in each quarter.'],
+         '03-growth.jpg', (245, 0, 1108, 740),
+         'RAILS  +1.91 pp', '2.57% → 4.48% of hiring ads', 'Rails: 24/934 ads → 32/714 ads. All hiring ads form the denominator.'),
+        (['Ask in plain', 'English.', 'See the SQL.'],
+         ['“Which skills grew', 'fastest in Q3 2026', 'versus Q2 2026?”'],
+         '05-sql-wide.jpg', (290, 20, 1085, 675),
+         'INSPECT THE METHOD', 'Actual returned counts and chart', 'The model proposes SQL. The app checks a read-only query, then executes it.'),
+        (['Trust starts', 'with the', 'source.'],
+         ['Read the original post.', 'Inspect AI attributes.', 'Follow the HN link.'],
+         '06-source.jpg', (250, 135, 1090, 665),
+         'SOURCE EVIDENCE', 'Close · September 2026', 'Work policy, country and seniority describe the whole advertisement.'),
+        (['From raw text', 'to a working', 'data product.'],
+         ['Python · Delta tables', 'AI Functions · SQL', 'Streamlit · Plotly'],
+         None, None, 'BUILT END TO END', 'Deployed on Databricks Apps',
+         'AI attributes need review. This project measures HN posting activity, not the entire job market.'),
+    ]
+    results = []
+    for i, (title, body, filename, crop, badge, takeaway, caveat) in enumerate(definitions):
+        im = Image.new('RGB', (W, H), BG)
+        d = ImageDraw.Draw(im)
+        d.rounded_rectangle((40, 31, 69, 60), radius=7, fill=ORANGE)
+        text(d, (46, 34), 'H', 19, BG, True)
+        text(d, (82, 32), 'HN HIRING OBSERVATORY', 21, INK, True)
+        text(d, (916, 38), 'PRODUCT TOUR  /  OCT 2026', 14, MUTED, True)
+        d.line((40, 84, 1232, 84), fill='#2C4250', width=1)
+        text(d, (42, 117), f'0{i+1} / {LABELS[i].upper()}', 14, ORANGE, True)
+        lines(d, (40, 170), title, 33)
+        lines(d, (42, 339), body, 20, MUTED, False, 33)
+        d.rounded_rectangle((40, 490, 348, 650), radius=12, fill=PANEL)
+        text(d, (58, 512), badge, 15, TEAL, True)
+        # Separate short lines keep the message readable at GitHub README width.
+        words, row, wrapped = takeaway.split(), '', []
+        for word in words:
+            attempt = f'{row} {word}'.strip()
+            if d.textlength(attempt, font=font(21, True)) > 270:
+                wrapped.append(row); row = word
+            else: row = attempt
+        wrapped.append(row)
+        lines(d, (58, 548), wrapped, 21, INK, True, 30)
+        if filename:
+            screenshot(im, filename, crop)
+        else:
+            d.rounded_rectangle((380, 112, 1232, 722), radius=16, fill=PANEL)
+            text(d, (415, 142), 'PIPELINE  /  EXPLANATORY DIAGRAM', 13, MUTED, True)
+            for j, (name, detail) in enumerate([
+                ('01  INGEST', 'Official HN API → raw Delta tables'),
+                ('02  EXTRACT', 'AI Functions → skills, salary, level, policy, country'),
+                ('03  CURATE', 'Normalized views + evidence + quality flags'),
+                ('04  EXPLORE', 'Charts + source explorer + checked SQL assistant'),
+            ]):
+                y = 194 + j*109
+                d.rounded_rectangle((415, y, 1196, y+85), radius=10, fill=BG)
+                text(d, (435, y+12), name, 14, TEAL, True)
+                text(d, (435, y+40), detail, 21)
+            text(d, (415, 667), 'Resumable inference · 5 models compared on 20 development posts', 17, MUTED)
+        d = ImageDraw.Draw(im)
+        text(d, (41, 743), caveat, 14, MUTED)
+        for j, label in enumerate(LABELS):
+            x = 40 + j*200
+            d.rounded_rectangle((x, 790, x+188, 794), radius=2, fill='#2C4250')
+            text(d, (x, 804), label, 13, INK if i==j else MUTED, i==j)
+        results.append(im)
+    return results
 
 
 def build():
-    OUT.mkdir(parents=True, exist_ok=True)
-    quality = read('quality/full-extraction-results.json')
-    metrics = quality['checks']['coverage'][0]
-    classified = quality['checks']['quality'][0]
-    growth_report = read('quality/skill-growth-results.json')
-    assert growth_report['status'] == 'success'
-    growth = growth_report['results'][:5]
-    assert growth_report['periods'] == {'previous':['2026-04','2026-06'], 'recent':['2026-07','2026-09']}, 'Update the story dates for a different comparison snapshot'
-    lead = growth[0]
-    previous_total, recent_total = int(lead['previous_total']), int(lead['recent_total'])
-    chat_report = read('quality/app-live-results.json')
-    assert chat_report['chat']['reference_sql_parity'] == 'passed'
-    sources = read('quality/app-chat-results.json')['checks'][0]['rows'][:5]
-    model = read('quality/model-comparison-results.json')
-    winner = next(row for row in model['scores'] if row['model'] == model['selected_model'])
-    frames = []
-
-    im, d = base(0, 'From hiring posts to hiring signals.',
-        'Explore skills, compensation, seniority, work policies and countries.',
-        'Saved snapshot: October 25, 2026. Posts and advertisements are not vacancy or hire counts.')
-    cards = [(metrics['successful_posts'], 'SOURCE POSTS PROCESSED'),
-             (classified['ai_classified_hiring_posts'], 'AI-CLASSIFIED HIRING ADS'),
-             (metrics['months'], 'MONTHLY THREADS SINCE 2020')]
-    for i, (value, label) in enumerate(cards):
-        x = 55 + i * 398
-        box(d, (x, 269, x+374, 421))
-        text(d, (x+24, 293), f'{int(value):,}', 46, TEAL, True)
-        text(d, (x+24, 367), label, 15, MUTED, True)
-    box(d, (55, 451, 1225, 647))
-    text(d, (82, 475), 'A question is a good starting point.', 26, bold=True)
-    for y, line in [(522, 'Which skills are gaining share of hiring advertisements?'),
-                    (557, 'What compensation is explicitly stated, and what remains unknown?'),
-                    (592, 'Can I inspect the SQL and trace a result to its original source?')]:
-        text(d, (83, y), '→  ' + line, 22, MUTED)
-    frames.append(im)
-
-    im, d = base(1, 'Compare share, not just raw mentions.',
-        'Q3 2026 versus Q2 2026 · at least 20 mentions in each quarter',
-        f'Denominators include every hiring ad: {previous_total:,} in Q2 and {recent_total:,} in Q3. Partial October is excluded.')
-    box(d, (55, 266, 1225, 655))
-    text(d, (81, 287), 'SKILL', 15, MUTED, True)
-    text(d, (322, 287), 'SHARE IN Q2 → SHARE IN Q3', 15, MUTED, True)
-    text(d, (1010, 287), 'CHANGE', 15, MUTED, True)
-    labels = {'rails':'Rails', 'ai':'AI', 'nodejs':'Node.js', 'react native':'React Native', 'llms':'LLMs'}
-    for i, row in enumerate(growth):
-        y = 330 + i * 62
-        text(d, (81, y), labels.get(row['skill'], row['skill']), 23, bold=True)
-        width = float(row['growth_percentage_points']) / 2.1 * 610
-        d.rounded_rectangle((322, y+30, 322+width, y+44), radius=5, fill=TEAL)
-        text(d, (322, y), f"{row['previous_share_pct']}% → {row['recent_share_pct']}%", 19, MUTED)
-        text(d, (1010, y), '+' + row['growth_percentage_points'] + ' pp', 23, TEAL, True)
-    frames.append(im)
-
-    im, d = base(2, 'Ask a question. Inspect the method.',
-        'A Databricks-hosted model proposes SQL; the app checks and executes it.',
-        'This saved chat answer matched the reference SQL. AI-generated queries still require review.')
-    box(d, (55, 267, 1225, 333), fill='#E8EFF0', outline='#E8EFF0')
-    text(d, (78, 288), '“Which skills grew fastest in Q3 2026 versus Q2 2026?”', 24, TEAL, True)
-    box(d, (55, 357, 812, 655), fill=INK, outline=INK)
-    text(d, (80, 377), 'GENERATED SQL · EXCERPT', 16, '#A8C8CE', True)
-    excerpt = ["FROM workspace.hnjob.post_attributes", "WHERE status = 'success' AND is_hiring = TRUE",
-        "COUNT_IF(period = 'previous') AS previous_total", "COUNT_IF(period = 'recent') AS recent_total",
-        'JOIN workspace.hnjob.post_skills AS s ...', 'ORDER BY growth_pp DESC LIMIT 5']
-    for i, line in enumerate(excerpt): text(d, (80, 420+i*31), line, 16, '#ECF2F4', mono=True)
-    box(d, (837, 357, 1225, 655))
-    text(d, (861, 380), 'VERIFIED RESULT', 16, MUTED, True)
-    text(d, (861, 425), labels.get(lead['skill'], lead['skill']) + '  +' + lead['growth_percentage_points'] + ' pp', 27, TEAL, True)
-    text(d, (861, 476), f"{lead['previous_mentions']} → {lead['recent_mentions']} mentions", 22)
-    text(d, (861, 519), f'{previous_total:,} → {recent_total:,} total ads', 21)
-    text(d, (861, 577), 'Counts + SQL stay visible.', 19, MUTED)
-    frames.append(im)
-
-    im, d = base(3, 'Follow the result back to the post.',
-        'Recorded query: five recent remote/Rust advertisements with original HN links.',
-        'Matches describe whole posts. A listed policy or skill may apply to only one advertised role.')
-    box(d, (55, 266, 1225, 655))
-    for i, row in enumerate(sources):
-        y = 286 + i * 70
-        text(d, (81, y), row['company'] or 'Company unspecified', 25, bold=True)
-        text(d, (380, y+4), f"HN #{row['comment_id']}  ·  {row['month']}", 19, MUTED)
-        text(d, (81, y+33), row['source_url'], 17, TEAL)
-        if i < len(sources)-1: d.line((81, y+62, 1197, y+62), fill=LINE)
-    frames.append(im)
-
-    im, d = base(4, 'One pipeline, from source to application.',
-        'Python · Delta tables · AI Functions · Databricks SQL · Streamlit · Plotly',
-        'Five-model comparison uses 20 development posts; the scores are not corpus-wide accuracy.')
-    stages = [('INGEST', 'Official HN API', 'Raw text + hashes'),
-              ('EXTRACT', 'AI Functions', 'Structured attributes'),
-              ('CURATE', 'Delta tables', 'Evidence + quality flags'),
-              ('SERVE', 'Databricks Apps', 'Charts + SQL assistant')]
-    for i, (label, line1, line2) in enumerate(stages):
-        x = 55 + i*300
-        box(d, (x, 285, x+270, 426))
-        text(d, (x+18, 303), label, 16, ORANGE, True)
-        text(d, (x+18, 344), line1, 22, bold=True)
-        text(d, (x+18, 383), line2, 16, MUTED)
-        if i < 3: text(d, (x+276, 342), '→', 22, TEAL, True)
-    for i, (title, detail, note) in enumerate([
-        ('Resumable processing', 'Reuse successful outputs', 'Hash + model + prompt version'),
-        ('Model evaluation', f"{winner['fully_passing_posts']}/20 raw post checks", 'GPT OSS 120B selected'),
-        ('Traceable analytics', 'SQL checks + source links', '10 automated tests + live checks')]):
-        x = 55+i*398
-        box(d, (x, 465, x+374, 647))
-        text(d, (x+20, 488), title, 22, bold=True)
-        text(d, (x+20, 540), detail, 20, TEAL)
-        text(d, (x+20, 585), note, 16, MUTED)
-    frames.append(im)
-
-    # These are illustrations generated from structured data, not edited UI screenshots.
-    for i, frame in enumerate(frames): frame.save(OUT / f'scene-{i:02}.png', optimize=True)
-    frames[0].save(OUT / 'overview.png', optimize=True)
-    montage = Image.new('RGB', (W, H*len(frames)))
-    for i, frame in enumerate(frames): montage.paste(frame, (0, H*i))
-    palette = montage.resize((256, 800)).quantize(colors=192)
-    indexed = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
-    indexed[0].save(OUT / 'walkthrough.gif', save_all=True, append_images=indexed[1:],
-                    duration=[5000]*5, loop=0, optimize=True, disposal=2)
+    slides = scenes()
+    # A shared palette keeps text and screenshot colors stable through cuts.
+    contact = Image.new('RGB', (W, H*len(slides)))
+    for i, slide in enumerate(slides):
+        contact.paste(slide, (0, H*i))
+        slide.save(OUT/f'scene-{i:02}.png', optimize=True)
+    palette = contact.resize((640, 2520)).quantize(colors=256)
+    frames, durations = [], []
+    total_ticks = sum(DURATIONS)*FPS
+    tick = 0
     ffmpeg = shutil.which('ffmpeg')
-    if not ffmpeg: raise RuntimeError('Install FFmpeg to build the captioned MP4.')
-    subprocess.run([ffmpeg, '-hide_banner', '-loglevel', 'error', '-nostdin', '-y',
-        '-framerate', '1/15', '-i', str(OUT / 'scene-%02d.png'),
-        '-vf', 'fps=24,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast',
-        '-crf', '23', '-movflags', '+faststart', '-t', '75', '-an',
-        '-metadata', 'title=HN Hiring Observatory — illustrated walkthrough',
-        '-metadata', 'comment=Illustrated from verified saved outputs; explanatory layouts; no audio.',
-        str(OUT / 'walkthrough.mp4')], check=True, timeout=180)
-    sources_used = ['quality/full-extraction-results.json', 'quality/skill-growth-results.json',
-        'quality/app-live-results.json', 'quality/app-chat-results.json', 'quality/model-comparison-results.json']
-    manifest = {'kind': 'illustrated walkthrough from verified saved outputs',
-        'screen_recording': False, 'audio': False, 'snapshot_date': '2026-10-25',
-        'dimensions': [W, H], 'gif_seconds':25, 'video_seconds':75,
-        'source_sha256': {p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources_used}}
-    (OUT/'provenance.json').write_text(json.dumps(manifest, indent=2)+'\n')
-    print(json.dumps({p.name: p.stat().st_size for p in OUT.iterdir() if p.is_file()}, indent=2))
+    if not ffmpeg: raise RuntimeError('FFmpeg is required.')
+    with tempfile.TemporaryDirectory(prefix='hnjob-tour-') as tmp:
+        tmp = Path(tmp)
+        for scene_i, (slide, seconds) in enumerate(zip(slides, DURATIONS)):
+            for local in range(seconds*FPS):
+                frame = slide.copy()
+                if local < 5 and scene_i > 0:
+                    # Keep a useful first-frame poster, then dissolve between scenes.
+                    alpha = (local+1)/5
+                    frame = Image.blend(slides[scene_i-1], frame, alpha*alpha*(3-2*alpha))
+                draw = ImageDraw.Draw(frame)
+                for j in range(len(slides)):
+                    x = 40 + j*200
+                    progress = 1 if j < scene_i else local/max(1, seconds*FPS-1) if j==scene_i else 0
+                    if progress:
+                        draw.rounded_rectangle((x,790,x+max(4,188*progress),794),radius=2,fill=TEAL)
+                frames.append(frame.quantize(palette=palette,dither=Image.Dither.NONE))
+                durations.append(100)
+                frame.save(tmp/f'{tick:04}.png', compress_level=1)
+                tick += 1
+        # disposal=1 allows GIF to encode only changed areas during reading pauses.
+        frames[0].save(OUT/'walkthrough.gif',save_all=True,append_images=frames[1:],
+            duration=durations,loop=0,optimize=True,disposal=1)
+        subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-nostdin','-y',
+            '-framerate',str(FPS),'-i',str(tmp/'%04d.png'),'-c:v','libx264',
+            '-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-movflags','+faststart',
+            '-an','-metadata','title=HN Hiring Observatory — real app tour',
+            str(OUT/'walkthrough.mp4')],check=True,timeout=180)
+    slides[0].save(OUT/'overview.png', optimize=True)
+    used = ['01-overview.jpg','02-skills.jpg','03-growth.jpg','05-sql-wide.jpg','06-source.jpg']
+    manifest = {
+        'kind':'edited product tour from actual browser screenshots, with an illustrated architecture card',
+        'screen_recording':False,'actual_ui_captures':True,'audio':False,
+        'snapshot_date':'2026-10-25','dimensions':[W,H],'gif_seconds':sum(DURATIONS),
+        'video_seconds':sum(DURATIONS),'fps':FPS,'scenes':LABELS,
+        'editing':'Cropped/resized captures; editorial captions, reading pauses, dissolves and animated progress. No invented cursor actions.',
+        'capture_sha256':{p:hashlib.sha256((CAPTURES/p).read_bytes()).hexdigest() for p in used},
+        'source_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in [
+            'quality/full-extraction-results.json','quality/skill-growth-results.json']},
+    }
+    (OUT/'provenance.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    print(json.dumps({'frames':total_ticks,'seconds':sum(DURATIONS),
+        'gif_bytes':(OUT/'walkthrough.gif').stat().st_size,
+        'mp4_bytes':(OUT/'walkthrough.mp4').stat().st_size},indent=2))
 
 
-if __name__ == '__main__': build()
+if __name__ == '__main__':
+    build()

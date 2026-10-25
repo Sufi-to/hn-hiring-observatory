@@ -2,30 +2,44 @@
 
 ## Media in this repository
 
-The README's 25-second GIF and 75-second captioned MP4 are **illustrated
-walkthroughs using verified saved outputs**. They explain the implemented workflow;
-their layouts are explanatory illustrations, not captures of the Streamlit UI.
-They require no Databricks login to play when the viewer has repository access.
-The MP4 has embedded captions and no audio.
+The README's **32-second GIF and captioned MP4 use actual browser captures of the
+running Streamlit app connected to Databricks**. The tour has six chapters, short
+dissolves, reading pauses and an animated progress indicator. Captions explain
+the workflow in larger text, and the final architecture card is an illustration.
+This is an edited screenshot tour, not a continuous screen recording. No cursor
+actions, typing animation or loading times are simulated. Both files require no
+Databricks login to play when the viewer has repository access; the MP4 has no audio.
 
 | Scene | What it demonstrates | Evidence |
 | --- | --- | --- |
-| Overview | 40,065 processed posts, 39,596 hiring ads, 82 months | `quality/full-extraction-results.json` |
-| Skill growth | Q3 vs Q2 2026; Rails +1.91 percentage points | `quality/skill-growth-results.json` |
-| Ask and inspect | A supported natural-language question, generated SQL and verified counts | `quality/app-live-results.json` |
-| Trace the source | Remote/Rust post matches with original HN links | `quality/app-chat-results.json` |
-| Architecture | Ingestion, structured extraction, curated tables, analytics and restricted SQL | Application and pipeline source |
+| Overview | Actual hiring activity chart; full corpus: 40,065 processed posts and 82 months | [Capture](assets/captures/01-overview.jpg) · [Coverage report](../quality/full-extraction-results.json) |
+| Track skills | Python, TypeScript and Rust share over time | [Capture](assets/captures/02-skills.jpg) |
+| Skill growth | Q3 vs Q2 2026; Rails +1.91 percentage points | [Capture](assets/captures/03-growth.jpg) · [Recorded results](../quality/skill-growth-results.json) |
+| Ask and inspect | Actual generated SQL, returned counts and growth chart | [Capture](assets/captures/05-sql-wide.jpg); counts agree with the recorded growth report |
+| Trace the source | Expanded Close advertisement, AI attributes, original text and HN link | [Capture](assets/captures/06-source.jpg) · [Original HN post](https://news.ycombinator.com/item?id=49615973) |
+| Architecture | Ingestion, structured extraction, curated tables, analytics and restricted SQL | [Application](../app/) · [Extraction notebook](../notebooks/05_extract_all_posts.py) |
 
-Values describe the saved October 25, 2026 snapshot. The visual code reads these
-reports directly. It does not invent market observations or invoke models.
+Captured October 25, 2026 with the previously selected `tom` profile. The overview
+and trend views use October 2025–September 2026. Growth compares Q2/Q3 2026 with
+at least 20 mentions each quarter and all hiring ads as denominators (934 and 714).
+The source example is an original September 2026 post, found with text search
+`Close`; it is not presented as a role-specific eligibility match.
 
-Rebuild with Pillow (installed with the app's Streamlit dependency) and FFmpeg:
+The raw captures are in `docs/assets/captures/`. The renderer only crops and scales
+those images; it does not redraw results or alter UI data. Its build makes no
+account or model calls. [provenance.json](assets/provenance.json) records hashes of
+captures and reports. The GIF is 1280×840, loops every 32 seconds, and is about
+2.6 MB; the H.264 MP4 provides the same tour with a smaller download.
+
+Rebuild with Pillow (installed with the app's Streamlit dependency), FFmpeg with
+H.264 support, and the DejaVu Sans fonts. The renderer expects fonts in
+`/usr/share/fonts/truetype/dejavu/` on Linux:
 
 ```sh
 .venv/bin/python docs/build_demo.py
 ```
 
-The build produces a GIF, MP4, static poster and five scene images in
+The build produces a GIF, MP4, static poster and six scene images in
 `docs/assets/`. It does not access accounts or change the deployed application.
 
 ## Recording the actual UI
@@ -67,7 +81,7 @@ your own voice:
 > comparison, preserved unknown values, automated checks, and deployment using a
 > managed service identity. The data measures posting activity, not actual hires.
 
-Replace the illustrated media only after reviewing the recording for readable
+Replace the screenshot tour only after reviewing the recording for readable
 text, correct results, account details and an accurate label.
 
 ## Sharing with recruiters
