@@ -52,6 +52,19 @@ technology demand and for analysts who want to verify the source behind a chart.
 The comparison uses shares because the total volume of hiring ads changed.
 [Executed SQL](sql/fastest_growing_skills.sql) · [Recorded results](quality/skill-growth-results.json)
 
+## Ask and inspect: from question to result
+
+Type a question into the chat, submit it, read the returned answer, and open
+**Generated SQL** to inspect the method. The result includes skill counts,
+total-ad denominators and a chart.
+
+![Ask and Inspect: enter a question in the real chat, submit it, see the processing state, read the answer, open Generated SQL, and explore the returned table and chart.](docs/assets/ask-inspect.gif)
+
+*25-second sequence of actual app captures. Pauses and waiting time are edited;
+the five returned skills, counts, shares and denominators match the saved
+reference query. [Static preview](docs/assets/ask-inspect-preview.png) ·
+[Capture details and provenance](docs/demo.md#focused-ask-and-inspect-demo).*
+
 ## How it works
 
 ```mermaid

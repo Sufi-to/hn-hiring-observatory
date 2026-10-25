@@ -1,0 +1,69 @@
+{
+  "kind": "edited screenshot sequence of a complete live chat interaction",
+  "actual_ui_captures": true,
+  "screen_recording": false,
+  "snapshot_date": "2026-10-25",
+  "question": "Which skills grew fastest in Q3 2026 versus Q2 2026?",
+  "dimensions": [
+    1160,
+    900
+  ],
+  "seconds": 25.0,
+  "fps": 10,
+  "result_reference_parity": "five skills, counts, denominators, shares and growth matched saved reference",
+  "editing": "Real partial/full input states and processing capture; pauses and wait shortened. No fabricated results or cursor actions.",
+  "scenes": [
+    {
+      "capture": "01-ready.jpg",
+      "seconds": 1.0,
+      "caption": "Start with a question about the hiring data."
+    },
+    {
+      "capture": "02-typing.jpg",
+      "seconds": 0.8,
+      "caption": "Enter a question directly in the chat."
+    },
+    {
+      "capture": "03-question.jpg",
+      "seconds": 2.2,
+      "caption": "Specify the comparison you want, then send."
+    },
+    {
+      "capture": "04-running.jpg",
+      "seconds": 2.0,
+      "caption": "The app sends your question to Databricks."
+    },
+    {
+      "capture": "05-answer.jpg",
+      "seconds": 4.0,
+      "caption": "Read the method and the returned counts."
+    },
+    {
+      "capture": "06-sql.jpg",
+      "seconds": 4.5,
+      "caption": "Open Generated SQL to inspect the query."
+    },
+    {
+      "capture": "07-results.jpg",
+      "seconds": 4.5,
+      "caption": "Verify skill mentions and total-ad denominators."
+    },
+    {
+      "capture": "08-chart.jpg",
+      "seconds": 6.0,
+      "caption": "Explore the returned result as a chart."
+    }
+  ],
+  "capture_sha256": {
+    "01-ready.jpg": "fb183fe61856f60de55a16a4bf71752ccd7d9a39afb5e3b5ec3984dcc224b076",
+    "02-typing.jpg": "33e50614f8ebce060b81caadf953714cec01fddd9c265d762eae95f0f91d0c1e",
+    "03-question.jpg": "da7667ba0d2c072321be159af7ac8d759e717ac6b5a5ae953e36d4c76b95df44",
+    "04-running.jpg": "e739a6e0fce0977edecbdafcf4941dcf9248e33d6fafb3b3ab76a1f7e69f756d",
+    "05-answer.jpg": "611e9d36e9312b67aed02fc62f9b14b724a6d9be9d4e09d3777613d5ef3abecc",
+    "06-sql.jpg": "537a457f4f63ada4c2aabff12ebf2a0e1da5c01e3aa040472c14ea8b7dd234bd",
+    "07-results.jpg": "4349d3ce10900c19ab36becad69fa00d8ec3f5fa4dc87790359542a876b5ee32",
+    "08-chart.jpg": "e0a93396123563c298d1391353f831b4fb6558faf2deb9c2aca9583c08971b62",
+    "result-ax.txt": "ab3330ae53a9a24b23623c247be6e4bd949876b6a025e71c301cb3bedc293a71"
+  },
+  "reference_sha256": "e8d76785dc0a7f8b5292da24b964e7e05c9b729f2e2cb39e52c252473d2be70b"
+}

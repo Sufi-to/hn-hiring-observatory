@@ -42,6 +42,36 @@ H.264 support, and the DejaVu Sans fonts. The renderer expects fonts in
 The build produces a GIF, MP4, static poster and six scene images in
 `docs/assets/`. It does not access accounts or change the deployed application.
 
+## Focused Ask and Inspect demo
+
+The separate [25-second chat GIF](assets/ask-inspect.gif) shows one complete live
+interaction: empty chat → partial question → full question → submitted question
+and processing state → returned answer → expanded SQL → result table → chart.
+The question is **“Which skills grew fastest in Q3 2026 versus Q2 2026?”**
+
+Input states and the processing screen were captured from the running app, along
+with the actual result. It is an edited sequence of screenshots: pauses and
+waiting time are shortened and do not represent inference latency. Cropping
+removes the sidebar while keeping the chat input and conversation visible.
+No cursor actions or results are drawn onto the interface.
+
+The result contains Rails, AI, Node.js, React Native and LLMs, with total-ad
+denominators 934 and 714. The builder parses the captured accessibility table and
+checks all five rows' counts, denominators, shares and growth against the
+[saved reference results](../quality/skill-growth-results.json) before rendering.
+It uses no additional model or warehouse calls.
+
+- [Raw chat captures and visible SQL/result evidence](assets/chat-captures/)
+- [Static question-entry preview](assets/ask-inspect-preview.png)
+- [Chat media provenance and capture hashes](assets/ask-inspect-provenance.json)
+- [Reproducible renderer](build_chat_demo.py)
+
+Rebuild independently of the main tour with the same Pillow/font prerequisites:
+
+```sh
+.venv/bin/python docs/build_chat_demo.py
+```
+
 ## Recording the actual UI
 
 Use the local app with the real dataset or sign in to the deployed app. Record

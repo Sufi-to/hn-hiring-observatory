@@ -59,6 +59,7 @@ build prerequisites and source hashes. Rebuild media with:
 
 ```sh
 .venv/bin/python docs/build_demo.py
+.venv/bin/python docs/build_chat_demo.py
 ```
 
 Review all six scenes for readable captions, correct periods, source context and

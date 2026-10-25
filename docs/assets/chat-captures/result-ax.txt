@@ -1,0 +1,195 @@
+Browser tab: 2, Title: "HN Hiring Observatory", URL: "http://127.0.0.1:8501/#a-question-is-a-good-starting-point".
+0 AXWebArea HN Hiring Observatory, URL: 127.0.0.1:8501/#a-question-is-a-good-starting-point
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8501/#stMain
+			4 container Description: Sidebar, ID: stSidebar
+				5 container
+					6 container
+						7 text HN  /  Observatory
+					8 text THE HIRING SIGNAL
+					9 Description: Workspace, ID: react-aria9509835077-:r1vv:
+						10 container
+							11 radio button (settable, integer) Description: Overview, Value: 0
+							12 text Overview
+						13 container
+							14 radio button (settable, integer) Description: Skills, Value: 0
+							15 text Skills
+						16 container
+							17 radio button (settable, integer) Description: Compensation, Value: 0
+							18 text Compensation
+						19 container
+							20 radio button (settable, integer) Description: Explore ads, Value: 0
+							21 text Explore ads
+						22 container
+							23 radio button (settable, integer) Description: Ask the data, Value: 1
+							24 text Ask the data
+						25 container
+							26 radio button (settable, integer) Description: Data coverage, Value: 0
+							27 text Data coverage
+					28 text FILTER THE MARKET
+					29 container
+						30 combo box (collapsed, settable) Description: From month, Value: 2025-10, ID: react-aria9509835077-:r20g:, Secondary Actions: Expand
+						31 pop up button (collapsed) Description: Open, ID: react-aria9509835077-:r20c:, Secondary Actions: Expand
+					32 container
+						33 combo box (collapsed, settable) Description: Through month, Value: 2026-09, ID: react-aria9509835077-:r20u:, Secondary Actions: Expand
+						34 pop up button (collapsed) Description: Open, ID: react-aria9509835077-:r20q:, Secondary Actions: Expand
+					35 container
+						36 combo box (collapsed, settable) Description: Country, Value: All countries, ID: react-aria9509835077-:r21c:, Secondary Actions: Expand
+						37 pop up button (collapsed) Description: Open, ID: react-aria9509835077-:r218:, Secondary Actions: Expand
+					38 container
+						39 combo box (collapsed, settable) Description: Work policy, Value: All policies, ID: react-aria9509835077-:r21q:, Secondary Actions: Expand
+						40 pop up button (collapsed) Description: Open, ID: react-aria9509835077-:r21m:, Secondary Actions: Expand
+					41 container
+						42 combo box (collapsed, settable) Description: Seniority, Value: All levels, ID: react-aria9509835077-:r228:, Secondary Actions: Expand
+						43 pop up button (collapsed) Description: Open, ID: react-aria9509835077-:r224:, Secondary Actions: Expand
+					44 text Filters match whole advertisements. Attributes can describe different roles within the same post.
+					45 text 39,596 hiring ads · 82 months
+					46 text Source: official HN monthly threads
+					47 container
+						48 text Retrieved 2026-10-24T22 :49  UTC
+					49 container
+						50 text Extracted 2026-10-25T01 :07  UTC · cached 5 min
+					51 button Refresh results
+						52 text Refresh results
+					53 text LOCAL REVIEW · profile tom
+			54 container
+				55 button Deploy
+				56 pop up button (collapsed) Description: Main menu, Secondary Actions: Expand
+			57 container stMain
+				58 text ASK THE OBSERVATORY
+				59 heading A question is a good starting point., Value: 1, ID: a-question-is-a-good-starting-point
+					60 text A question is a good starting point.
+					61 link Description: Link to heading, Value: 127.0.0.1:8501/#a-question-is-a-good-starting-point
+				62 text Ask about the hiring market in plain English. Every data answer includes the SQL that produced it and the returned results.
+				63 text Local profile: tom · five curated HN tables/views · current filters are defaults; explicit dates in your question override them
+				64 button (collapsed) How this assistant works, Secondary Actions: Expand
+					65 text How this assistant works
+				66 button New conversation
+					67 text New conversation
+				68 container Chat message from user
+					69 text Which skills grew fastest in Q3 2026 versus Q2 2026?
+				70 container Chat message from assistant
+					71 text The query selects all successful hiring ads (status='success' and is_hiring=true) from April‑September 2026, assigns each ad to Q2 (Apr‑Jun) or Q3 (Jul‑Sep), and counts distinct comment_id per period to get total ads. It then joins to post_skills to count distinct ads mentioning each skill in each quarter (requiring at least 20 mentions in both quarters). Shares are computed as mentions/total ads per quarter (percentage). Growth is the difference in share points (Q3 share minus Q2 share). The result returns the top 5 skills with the largest positive growth, including raw counts, totals, shares, and growth in percentage points.
+					201 container
+						202 button (expanded) Generated SQL, Secondary Actions: Collapse
+							203 text Generated SQL
+						204 container
+							205 text SELECT * FROM ( WITH  ads  AS ( SELECT  comment_id , CASE WHEN month BETWEEN '2026-04' AND '2026-06' THEN 'Q2' WHEN month BETWEEN '2026-07' AND '2026-09' THEN 'Q3' END AS  period  FROM  workspace . hnjob . post_attributes  WHERE status = 'success' AND  is_hiring  = TRUE AND month BETWEEN '2026-04' AND '2026-09' ) ,  totals  AS ( SELECT  COUNT_IF ( period  = 'Q2' ) AS  q2_total ,  COUNT_IF ( period  = 'Q3' ) AS  q3_total  FROM  ads ) ,  mentions  AS ( SELECT  s . skill , COUNT ( DISTINCT CASE WHEN  a . period  = 'Q2' THEN  a . comment_id  END ) AS  q2_mentions , COUNT ( DISTINCT CASE WHEN  a . period  = 'Q3' THEN  a . comment_id  END ) AS  q3_mentions  FROM  workspace . hnjob . post_skills  AS  s  JOIN  ads  AS  a  ON  s . comment_id  =  a . comment_id  GROUP BY  s . skill ) SELECT  m . skill ,  m . q2_mentions ,  m . q3_mentions ,  t . q2_total ,  t . q3_total , 100.0 *  m . q2_mentions  / NULLIF ( t . q2_total , 0 ) AS  q2_share_pct , 100.0 *  m . q3_mentions  / NULLIF ( t . q3_total , 0 ) AS  q3_share_pct , 100.0 *  m . q3_mentions  / NULLIF ( t . q3_total , 0 ) - 100.0 *  m . q2_mentions  / NULLIF ( t . q2_total , 0 ) AS  growth_pp  FROM  mentions  AS  m  CROSS JOIN  totals  AS  t  WHERE  m . q2_mentions  >= 20 AND  m . q3_mentions  >= 20 ORDER BY  growth_pp  DESC LIMIT 5 ) AS  answer  LIMIT 200
+					74 container
+						75 button Show/hide columns
+						76 button Download as CSV
+						77 button Search
+						78 button Fullscreen
+						79 image
+							80 table
+								81 row skill q2_mentions q3_mentions q2_total q3_total q2_share_pct q3_share_pct growth_pp
+									82 cell (selectable) skill
+									83 cell (selectable) q2_mentions
+									84 cell (selectable) q3_mentions
+									85 cell (selectable) q2_total
+									86 cell (selectable) q3_total
+									87 cell (selectable) q2_share_pct
+									88 cell (selectable) q3_share_pct
+									89 cell (selectable) growth_pp
+								90 container
+									91 row (selectable) rails 24 32 934 714 2.56959314775161 4.48179271708683 1.9121995693352
+										92 cell (selectable) Value: rails, ID: glide-cell-0-0
+										93 cell (selectable) Value: 24, ID: glide-cell-1-0
+										94 cell (selectable) Value: 32, ID: glide-cell-2-0
+										95 cell (selectable) Value: 934, ID: glide-cell-3-0
+										96 cell (selectable) Value: 714, ID: glide-cell-4-0
+										97 cell (selectable) Value: 2.56959314775161, ID: glide-cell-5-0
+										98 cell (selectable) Value: 4.48179271708683, ID: glide-cell-6-0
+										99 cell (selectable) Value: 1.9121995693352, ID: glide-cell-7-0
+									100 row (selectable) ai 110 95 934 714 11.77730192719486 13.30532212885154 1.5280202016567
+										101 cell (selectable) Value: ai, ID: glide-cell-0-1
+										102 cell (selectable) Value: 110, ID: glide-cell-1-1
+										103 cell (selectable) Value: 95, ID: glide-cell-2-1
+										104 cell (selectable) Value: 934, ID: glide-cell-3-1
+										105 cell (selectable) Value: 714, ID: glide-cell-4-1
+										106 cell (selectable) Value: 11.77730192719486, ID: glide-cell-5-1
+										107 cell (selectable) Value: 13.30532212885154, ID: glide-cell-6-1
+										108 cell (selectable) Value: 1.5280202016567, ID: glide-cell-7-1
+									109 row (selectable) nodejs 76 69 934 714 8.13704496788009 9.66386554621849 1.5268205783384
+										110 cell (selectable) Value: nodejs, ID: glide-cell-0-2
+										111 cell (selectable) Value: 76, ID: glide-cell-1-2
+										112 cell (selectable) Value: 69, ID: glide-cell-2-2
+										113 cell (selectable) Value: 934, ID: glide-cell-3-2
+										114 cell (selectable) Value: 714, ID: glide-cell-4-2
+										115 cell (selectable) Value: 8.13704496788009, ID: glide-cell-5-2
+										116 cell (selectable) Value: 9.66386554621849, ID: glide-cell-6-2
+										117 cell (selectable) Value: 1.5268205783384, ID: glide-cell-7-2
+									118 row (selectable) react native 28 30 934 714 2.99785867237687 4.20168067226891 1.203821999892
+										119 cell (selectable) Value: react native, ID: glide-cell-0-3
+										120 cell (selectable) Value: 28, ID: glide-cell-1-3
+										121 cell (selectable) Value: 30, ID: glide-cell-2-3
+										122 cell (selectable) Value: 934, ID: glide-cell-3-3
+										123 cell (selectable) Value: 714, ID: glide-cell-4-3
+										124 cell (selectable) Value: 2.99785867237687, ID: glide-cell-5-3
+										125 cell (selectable) Value: 4.20168067226891, ID: glide-cell-6-3
+										126 cell (selectable) Value: 1.203821999892, ID: glide-cell-7-3
+									127 row (selectable) llms 32 32 934 714 3.42612419700214 4.48179271708683 1.0556685200847
+										128 cell (selectable) Value: llms, ID: glide-cell-0-4
+										129 cell (selectable) Value: 32, ID: glide-cell-1-4
+										130 cell (selectable) Value: 32, ID: glide-cell-2-4
+										131 cell (selectable) Value: 934, ID: glide-cell-3-4
+										132 cell (selectable) Value: 714, ID: glide-cell-4-4
+										133 cell (selectable) Value: 3.42612419700214, ID: glide-cell-5-4
+										134 cell (selectable) Value: 4.48179271708683, ID: glide-cell-6-4
+										135 cell (selectable) Value: 1.0556685200847, ID: glide-cell-7-4
+					136 text growth_pp by skill
+					137 container
+						138 image
+							139 image
+							140 image
+							141 image
+							142 image
+							143 image
+							144 image
+							145 image
+							146 image
+							147 image
+							148 image
+							149 image
+							191 text rails
+							192 text ai
+							193 text nodejs
+							194 text react native
+							195 text llms
+							196 text 0
+							197 text 0.5
+							198 text 1
+							199 text 1.5
+							200 text 2
+						160 image
+						161 toolbar modebar-53d3ec
+							162 button Download plot as a PNG
+								163 image
+							164 container
+								165 button Zoom
+									166 image
+								167 button Pan
+									168 image
+							169 container
+								170 button Zoom in
+									171 image
+								172 button Zoom out
+									173 image
+								174 button Autoscale
+									175 image
+								176 button Reset axes
+									177 image
+							178 button Fullscreen
+								179 image
+						180 image
+					181 button Download CSV
+						182 text Download CSV
+					183 text AI-generated SQL — verify the method and source data. This result measures HN posting activity, not actual hires.
+				184 text HN HIRING OBSERVATORY · Official monthly threads since 2020 · Extracted attributes are AI-derived · Counts describe advertisements, not vacancies or the entire tech labor market.
+				185 container
+					186 text entry area (settable) Ask a question about HN hiring…
+					187 button (disabled) Send message
+		188 image js-plotly-tester
+
+The focused UI element is 202 button (expanded) Generated SQL, Secondary Actions: Collapse
