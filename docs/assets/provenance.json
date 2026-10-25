@@ -1,0 +1,19 @@
+{
+  "kind": "illustrated walkthrough from verified saved outputs",
+  "screen_recording": false,
+  "audio": false,
+  "snapshot_date": "2026-10-25",
+  "dimensions": [
+    1280,
+    800
+  ],
+  "gif_seconds": 25,
+  "video_seconds": 75,
+  "source_sha256": {
+    "quality/full-extraction-results.json": "8313243b4f474cfe0f2344cc1f39281e6e3cacea4b7c42203515549c4bd153c2",
+    "quality/skill-growth-results.json": "e8d76785dc0a7f8b5292da24b964e7e05c9b729f2e2cb39e52c252473d2be70b",
+    "quality/app-live-results.json": "90a840dddfbd08dee9015ecb6e839b0a9a4ed8fa555a6e3b799eaa3c0dba44fc",
+    "quality/app-chat-results.json": "6a959f05117a6c5fc51d35e76c8d309dd105cc81c5ee902fc0c47955c23e8557",
+    "quality/model-comparison-results.json": "b1e27cf82a7524b9bff06340d1a57f5bf8ff880aeab9b55effe39a0153667eb6"
+  }
+}
