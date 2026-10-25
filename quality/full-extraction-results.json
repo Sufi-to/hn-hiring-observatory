@@ -1,0 +1,579 @@
+{
+  "verified_at": "2026-10-25T12:11:40.822002+00:00",
+  "job_id": 5181643003890,
+  "job_run_id": 30070794346507,
+  "profile": "tom",
+  "namespace": "workspace.hnjob",
+  "status": "complete",
+  "checks": {
+    "coverage": [
+      {
+        "posts": "40065",
+        "distinct_posts": "40065",
+        "successful_posts": "40065",
+        "incomplete_posts": "0",
+        "selected_models": "1",
+        "prompt_versions": "1",
+        "first_month": "2020-01",
+        "last_month": "2026-10",
+        "months": "82"
+      }
+    ],
+    "missing_inputs": [
+      {
+        "missing_inputs": "0"
+      }
+    ],
+    "quality": [
+      {
+        "ai_classified_hiring_posts": "39596",
+        "ai_classified_non_hiring_posts": "469",
+        "evidence_review_posts": "153",
+        "invalid_salary_posts": "4",
+        "country_review_posts": "30"
+      }
+    ],
+    "monthly_coverage": [
+      {
+        "month": "2020-01",
+        "input_posts": "574",
+        "processed_posts": "574",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-02",
+        "input_posts": "579",
+        "processed_posts": "579",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-03",
+        "input_posts": "644",
+        "processed_posts": "644",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-04",
+        "input_posts": "457",
+        "processed_posts": "457",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-05",
+        "input_posts": "499",
+        "processed_posts": "499",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-06",
+        "input_posts": "506",
+        "processed_posts": "506",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-07",
+        "input_posts": "538",
+        "processed_posts": "538",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-08",
+        "input_posts": "641",
+        "processed_posts": "641",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-09",
+        "input_posts": "600",
+        "processed_posts": "600",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-10",
+        "input_posts": "710",
+        "processed_posts": "710",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-11",
+        "input_posts": "692",
+        "processed_posts": "692",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2020-12",
+        "input_posts": "685",
+        "processed_posts": "685",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-01",
+        "input_posts": "703",
+        "processed_posts": "703",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-02",
+        "input_posts": "937",
+        "processed_posts": "937",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-03",
+        "input_posts": "903",
+        "processed_posts": "903",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-04",
+        "input_posts": "876",
+        "processed_posts": "876",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-05",
+        "input_posts": "843",
+        "processed_posts": "843",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-06",
+        "input_posts": "966",
+        "processed_posts": "966",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-07",
+        "input_posts": "877",
+        "processed_posts": "877",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-08",
+        "input_posts": "833",
+        "processed_posts": "833",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-09",
+        "input_posts": "897",
+        "processed_posts": "897",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-10",
+        "input_posts": "770",
+        "processed_posts": "770",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-11",
+        "input_posts": "942",
+        "processed_posts": "942",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2021-12",
+        "input_posts": "738",
+        "processed_posts": "738",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-01",
+        "input_posts": "661",
+        "processed_posts": "661",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-02",
+        "input_posts": "800",
+        "processed_posts": "800",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-03",
+        "input_posts": "784",
+        "processed_posts": "784",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-04",
+        "input_posts": "743",
+        "processed_posts": "743",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-05",
+        "input_posts": "756",
+        "processed_posts": "756",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-06",
+        "input_posts": "723",
+        "processed_posts": "723",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-07",
+        "input_posts": "523",
+        "processed_posts": "523",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-08",
+        "input_posts": "631",
+        "processed_posts": "631",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-09",
+        "input_posts": "503",
+        "processed_posts": "503",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-10",
+        "input_posts": "455",
+        "processed_posts": "455",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-11",
+        "input_posts": "524",
+        "processed_posts": "524",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2022-12",
+        "input_posts": "481",
+        "processed_posts": "481",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-01",
+        "input_posts": "363",
+        "processed_posts": "363",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-02",
+        "input_posts": "436",
+        "processed_posts": "436",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-03",
+        "input_posts": "406",
+        "processed_posts": "406",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-04",
+        "input_posts": "352",
+        "processed_posts": "352",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-05",
+        "input_posts": "342",
+        "processed_posts": "342",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-06",
+        "input_posts": "331",
+        "processed_posts": "331",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-07",
+        "input_posts": "306",
+        "processed_posts": "306",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-08",
+        "input_posts": "343",
+        "processed_posts": "343",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-09",
+        "input_posts": "296",
+        "processed_posts": "296",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-10",
+        "input_posts": "321",
+        "processed_posts": "321",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-11",
+        "input_posts": "362",
+        "processed_posts": "362",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2023-12",
+        "input_posts": "313",
+        "processed_posts": "313",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-01",
+        "input_posts": "277",
+        "processed_posts": "277",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-02",
+        "input_posts": "341",
+        "processed_posts": "341",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-03",
+        "input_posts": "300",
+        "processed_posts": "300",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-04",
+        "input_posts": "289",
+        "processed_posts": "289",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-05",
+        "input_posts": "396",
+        "processed_posts": "396",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-06",
+        "input_posts": "339",
+        "processed_posts": "339",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-07",
+        "input_posts": "379",
+        "processed_posts": "379",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-08",
+        "input_posts": "322",
+        "processed_posts": "322",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-09",
+        "input_posts": "303",
+        "processed_posts": "303",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-10",
+        "input_posts": "329",
+        "processed_posts": "329",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-11",
+        "input_posts": "317",
+        "processed_posts": "317",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2024-12",
+        "input_posts": "330",
+        "processed_posts": "330",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-01",
+        "input_posts": "276",
+        "processed_posts": "276",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-02",
+        "input_posts": "396",
+        "processed_posts": "396",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-03",
+        "input_posts": "354",
+        "processed_posts": "354",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-04",
+        "input_posts": "306",
+        "processed_posts": "306",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-05",
+        "input_posts": "300",
+        "processed_posts": "300",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-06",
+        "input_posts": "358",
+        "processed_posts": "358",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-07",
+        "input_posts": "331",
+        "processed_posts": "331",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-08",
+        "input_posts": "305",
+        "processed_posts": "305",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-09",
+        "input_posts": "299",
+        "processed_posts": "299",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-10",
+        "input_posts": "341",
+        "processed_posts": "341",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-11",
+        "input_posts": "392",
+        "processed_posts": "392",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2025-12",
+        "input_posts": "377",
+        "processed_posts": "377",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-01",
+        "input_posts": "256",
+        "processed_posts": "256",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-02",
+        "input_posts": "410",
+        "processed_posts": "410",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-03",
+        "input_posts": "317",
+        "processed_posts": "317",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-04",
+        "input_posts": "329",
+        "processed_posts": "329",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-05",
+        "input_posts": "318",
+        "processed_posts": "318",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-06",
+        "input_posts": "313",
+        "processed_posts": "313",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-07",
+        "input_posts": "259",
+        "processed_posts": "259",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-08",
+        "input_posts": "227",
+        "processed_posts": "227",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-09",
+        "input_posts": "248",
+        "processed_posts": "248",
+        "incomplete_posts": "0"
+      },
+      {
+        "month": "2026-10",
+        "input_posts": "266",
+        "processed_posts": "266",
+        "incomplete_posts": "0"
+      }
+    ],
+    "view_counts": [
+      {
+        "view_name": "post_skills",
+        "rows": "219899"
+      },
+      {
+        "view_name": "post_countries",
+        "rows": "39419"
+      },
+      {
+        "view_name": "post_salaries",
+        "rows": "6019"
+      },
+      {
+        "view_name": "post_processing_coverage",
+        "rows": "82"
+      }
+    ],
+    "provenance": [
+      {
+        "model": "databricks-gpt-oss-120b",
+        "prompt_hash": "9df727b79f59e521d31ad57812825caacca255585fa9275e7b25d5358f719c3c",
+        "extraction_version": "post-fields-v1",
+        "posts": "40065"
+      }
+    ],
+    "run": [
+      {
+        "run_id": "f236ce3b-8d4f-4ec6-b73b-f57f6e322324",
+        "model": "databricks-gpt-oss-120b",
+        "prompt_hash": "9df727b79f59e521d31ad57812825caacca255585fa9275e7b25d5358f719c3c",
+        "status": "complete",
+        "total_posts": "40065",
+        "successful_posts": "40065",
+        "failed_posts": "0",
+        "pending_posts": "0",
+        "started_at": "2026-10-24T23:48:40.850Z",
+        "updated_at": "2026-10-25T01:16:21.381Z",
+        "error": null
+      }
+    ]
+  },
+  "limitations": [
+    "Successful processing and schema checks do not establish semantic accuracy of all extracted facts.",
+    "The model comparison used 20 development posts, not a held-out corpus-wide evaluation.",
+    "Attributes are per post; one post may advertise multiple vacancies with different requirements.",
+    "Evidence and country review flags require source inspection; unknown salary fields remain unknown.",
+    "October 2026 is a partial month; deleted/dead source text cannot be recovered from the HN API."
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HN Job Market Analysis"
+  short_description: "Query HN hiring trends with reliable project metrics"
+  default_prompt: "Use $hnjob-market-analysis to analyze skill growth in the HN hiring dataset and show the SQL."

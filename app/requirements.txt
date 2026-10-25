@@ -1,0 +1,5 @@
+streamlit==1.66.1
+plotly==6.9.0
+pandas==2.3.3
+databricks-sdk==0.157.0
+sqlglot==30.24.0

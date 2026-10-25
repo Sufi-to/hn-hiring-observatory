@@ -1,0 +1,24 @@
+{
+  "benchmark_id": "c308cb8d-f7d1-4525-ac75-8ef5bbf9e619",
+  "job_id": 1011439504028854,
+  "run_id": 734446238810456,
+  "sample_posts": 20,
+  "field_checks_per_model": 120,
+  "prompt_hash": "9df727b79f59e521d31ad57812825caacca255585fa9275e7b25d5358f719c3c",
+  "selection_rule": "Most fully passing posts, then field checks, then valid outputs, then lowest observed 20-post batch duration",
+  "selected_model": "databricks-gpt-oss-120b",
+  "scores": [
+    {"model":"databricks-gpt-oss-120b","valid_outputs":20,"fully_passing_posts":19,"field_checks":119,"batch_seconds":71.9},
+    {"model":"databricks-qwen35-122b-a10b","valid_outputs":20,"fully_passing_posts":17,"field_checks":117,"batch_seconds":39.0},
+    {"model":"databricks-qwen3-next-80b-a3b-instruct","valid_outputs":20,"fully_passing_posts":14,"field_checks":114,"batch_seconds":11.2},
+    {"model":"databricks-meta-llama-3-3-70b-instruct","valid_outputs":20,"fully_passing_posts":12,"field_checks":112,"batch_seconds":14.1},
+    {"model":"databricks-gpt-oss-20b","valid_outputs":13,"fully_passing_posts":11,"field_checks":75,"batch_seconds":147.0}
+  ],
+  "notes": [
+    "Same 20 frozen inputs, exact prompt, schema, temperature and output-token limit for every model.",
+    "Scores are raw outputs before common normalization or header-country review.",
+    "The winning model missed one explicit management seniority; the common header-title normalization handles it.",
+    "These are development sample checks, not held-out or corpus-wide accuracy estimates.",
+    "Batch durations include query overhead and do not predict full-corpus throughput linearly."
+  ]
+}

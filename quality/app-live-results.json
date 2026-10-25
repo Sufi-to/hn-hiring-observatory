@@ -1,0 +1,444 @@
+{
+  "checked_at": "2026-10-25T12:31:46.131028+00:00",
+  "queries": [
+    {
+      "query": "metadata",
+      "status": "success",
+      "rows": 1,
+      "truncated": false,
+      "statement_id": "01f1d06f-fd7e-1f9c-b18e-50ab2aa2c604",
+      "sample": [
+        {
+          "total_posts": 40065,
+          "months": 82,
+          "first_month": "2020-01",
+          "last_month": "2026-10",
+          "fetched_at": "2026-10-24T22:49:16.748Z",
+          "extracted_at": "2026-10-25T01:07:17.535Z",
+          "hiring_ads": 39596,
+          "incomplete": 0,
+          "evidence_flags": 153,
+          "salary_flags": 4,
+          "country_flags": 30
+        }
+      ]
+    },
+    {
+      "query": "options",
+      "status": "success",
+      "rows": 547,
+      "truncated": false,
+      "statement_id": "01f1d06f-fd7e-1d35-aea6-45a7959f5899",
+      "sample": [
+        {
+          "kind": "country",
+          "value": "Israel"
+        },
+        {
+          "kind": "country",
+          "value": "Australia"
+        }
+      ]
+    },
+    {
+      "query": "coverage",
+      "status": "success",
+      "rows": 82,
+      "truncated": false,
+      "statement_id": "01f1d06f-fd6c-17bf-bf8b-2394d390773c",
+      "sample": [
+        {
+          "month": "2020-01",
+          "input_posts": 574,
+          "processed_posts": 574,
+          "hiring_ads": 571,
+          "non_hiring_posts": 3,
+          "incomplete_posts": 0,
+          "evidence_review_posts": 1,
+          "threads": 1,
+          "expected_comments": 613,
+          "retrieved_comments": 613,
+          "unavailable_comments": 39,
+          "failed_comments": 0,
+          "pending_comments": 0,
+          "partial_month": false
+        },
+        {
+          "month": "2020-02",
+          "input_posts": 579,
+          "processed_posts": 579,
+          "hiring_ads": 569,
+          "non_hiring_posts": 10,
+          "incomplete_posts": 0,
+          "evidence_review_posts": 0,
+          "threads": 1,
+          "expected_comments": 606,
+          "retrieved_comments": 606,
+          "unavailable_comments": 27,
+          "failed_comments": 0,
+          "pending_comments": 0,
+          "partial_month": false
+        }
+      ]
+    },
+    {
+      "query": "monthly",
+      "status": "success",
+      "rows": 6,
+      "truncated": false,
+      "statement_id": "01f1d06f-fe12-1faf-a465-94e12ea54d32",
+      "sample": [
+        {
+          "month": "2026-04",
+          "advertisements": 324,
+          "remote_ads": 167,
+          "salary_ads": 93
+        },
+        {
+          "month": "2026-05",
+          "advertisements": 307,
+          "remote_ads": 164,
+          "salary_ads": 93
+        }
+      ]
+    },
+    {
+      "query": "skills",
+      "status": "success",
+      "rows": 30,
+      "truncated": false,
+      "statement_id": "01f1d06f-fe14-175b-a1cc-73de12105b1f",
+      "sample": [
+        {
+          "skill": "python",
+          "advertisements": 438
+        },
+        {
+          "skill": "typescript",
+          "advertisements": 390
+        }
+      ]
+    },
+    {
+      "query": "policies",
+      "status": "success",
+      "rows": 4,
+      "truncated": false,
+      "statement_id": "01f1d06f-fe9f-167a-9b8c-033de0d40457",
+      "sample": [
+        {
+          "label": "remote",
+          "advertisements": 850
+        },
+        {
+          "label": "onsite",
+          "advertisements": 428
+        }
+      ]
+    },
+    {
+      "query": "seniority",
+      "status": "success",
+      "rows": 8,
+      "truncated": false,
+      "statement_id": "01f1d06f-fea0-1310-a1ae-9c7e30abe27e",
+      "sample": [
+        {
+          "label": "unspecified",
+          "advertisements": 764
+        },
+        {
+          "label": "senior",
+          "advertisements": 684
+        }
+      ]
+    },
+    {
+      "query": "countries",
+      "status": "success",
+      "rows": 20,
+      "truncated": false,
+      "statement_id": "01f1d06f-fed0-1dec-944b-c630405b1ab5",
+      "sample": [
+        {
+          "label": "United States",
+          "advertisements": 1011
+        },
+        {
+          "label": "United Kingdom",
+          "advertisements": 135
+        }
+      ]
+    },
+    {
+      "query": "salary_options",
+      "status": "success",
+      "rows": 50,
+      "truncated": false,
+      "statement_id": "01f1d06f-ff2b-1b85-8230-d29b0995dd84",
+      "sample": [
+        {
+          "currency": null,
+          "period": null,
+          "type": "unspecified",
+          "ranges": 364
+        },
+        {
+          "currency": null,
+          "period": null,
+          "type": null,
+          "ranges": 133
+        }
+      ]
+    },
+    {
+      "query": "explorer",
+      "status": "success",
+      "rows": 20,
+      "truncated": false,
+      "statement_id": "01f1d06f-ff2c-1a31-9ca6-3de485fb6c84",
+      "sample": [
+        {
+          "comment_id": 49713455,
+          "company": "Tether",
+          "month": "2026-09",
+          "source_url": "https://news.ycombinator.com/item?id=49713455",
+          "source_text": "At Tether (https://tether.io/) we're hiring! We envision a world where technology enables financial freedom, educational empowerment, energy sustainability, and data sovereignty.\nAll of our roles are fully remote, worldwide. Apply now:\n- Technical Lead (GPU Infrastructure): https://careers.tether.io/o/technical-lead-gpu-infrastructur...\n- DevOps Engineer (QVAC): https://careers.tether.io/o/devops-engineer-100-remote-17?so...\n- Software Architect (Tokenization): https://careers.tether.io/o/senior-software-architect-100-re...\n- Bare Developer (C / JavaScript): https://careers.tether.io/o/bare-developer-100-remote-worldw...\n- Backend Developer (Wallets): https://careers.tether.io/o/backend-engineer-wallets-100-rem...\n- Frontend Engineer (QVAC): https://careers.tether.io/o/frontend-software-engineer-100-r...\nResearch team:\n- AI Research Engineer (Model Compression & Quantization): https://careers.tether.io/o/ai-research-engineer-model-compr...\n- AI Research Engineer (Multi-Modal & Vision): https://careers.tether.io/o/ai-research-engineer-multi-modal...\n- AI Research Engineer (Multi-Modal Reinforcement Learning): https://careers.tether.io/o/ai-research-engineer-multi-modal...\n- AI Research Engineer (Agentic Post-training): https://careers.tether.io/o/ai-research-engineer-agentic-pos...",
+          "skills": [
+            "gpu",
+            "infrastructure",
+            "devops",
+            "qvac",
+            "tokenization",
+            "c",
+            "javascript",
+            "backend",
+            "wallets",
+            "frontend",
+            "ai",
+            "research",
+            "model compression",
+            "quantization",
+            "multi-modal",
+            "vision",
+            "reinforcement learning",
+            "agentic post-training"
+          ],
+          "seniority": [
+            "unspecified"
+          ],
+          "remote_policy": [
+            "remote"
+          ],
+          "countries": [],
+          "country_scope": [
+            "worldwide"
+          ],
+          "salary": [],
+          "evidence": {
+            "country": [],
+            "remote": [
+              "All of our roles are fully remote, worldwide."
+            ],
+            "salary": []
+          },
+          "evidence_quotes_verified": true,
+          "salary_bounds_valid": true,
+          "country_review_status": "not_needed"
+        },
+        {
+          "comment_id": 49711313,
+          "company": "Pango",
+          "month": "2026-09",
+          "source_url": "https://news.ycombinator.com/item?id=49711313",
+          "source_text": "Pango (YC S26) | Founding Software Engineer | On-site (hybrid) in Stockholm, Sweden | Full time\nPango is building the world's first Agentic Operating System for e-commerce logistics. Our vision is to create the AI e-commerce employee of the future. We are forming our core team in Stockholm and are looking for exceptional engineers. We are backed by some of the most some of the most prominent investors in the world. In less than a year, we have seen massive growth where we can't keep up with the demand and need engineers to bring the product faster to the market.\nYou are a good fit if:\n* You are comfortable maintaining, expanding and operating an B2B SaaS platform with a high sense of ownership.\n* You have previous experience working at a SaaS product company as a founding or senior engineer\n* You have strong proficiency in any backend language or platform (we particularly like Rust or Golang background)\n* You have a pragmatic attitude and understand the importance of shipping velocity at an early stage startup\n* E-commerce (Shopify, WMS, IMS, shipping carrier integrations) experience is a plus.\nYou will take a key role in shaping the product and company, with ability to make an impact and advance career limited only by your aptitude and interest.\nReach out to steve@pango.ai if you are interested or have any questions. We review applications immediately and move quickly.\nPlease don't use AI to write the initial message.",
+          "skills": [
+            "rust",
+            "golang",
+            "shopify",
+            "wms",
+            "ims"
+          ],
+          "seniority": [
+            "senior"
+          ],
+          "remote_policy": [
+            "hybrid"
+          ],
+          "countries": [
+            "Sweden"
+          ],
+          "country_scope": [
+            "listed_countries"
+          ],
+          "salary": [],
+          "evidence": {
+            "country": [
+              "Stockholm, Sweden"
+            ],
+            "remote": [
+              "On-site (hybrid)"
+            ],
+            "salary": []
+          },
+          "evidence_quotes_verified": true,
+          "salary_bounds_valid": true,
+          "country_review_status": "not_needed"
+        }
+      ]
+    },
+    {
+      "query": "explorer_count",
+      "status": "success",
+      "rows": 1,
+      "truncated": false,
+      "statement_id": "01f1d06f-ff79-1218-b4b0-1803a08a7490",
+      "sample": [
+        {
+          "advertisements": 1648
+        }
+      ]
+    },
+    {
+      "query": "skill_trend",
+      "status": "success",
+      "rows": 12,
+      "truncated": false,
+      "statement_id": "01f1d06f-ffa8-15c2-9262-70ee246ccfd3",
+      "sample": [
+        {
+          "month": "2026-04",
+          "skill": "python",
+          "advertisements": 91,
+          "all_ads": 324,
+          "share_pct": 28.0864197531
+        },
+        {
+          "month": "2026-04",
+          "skill": "rust",
+          "advertisements": 30,
+          "all_ads": 324,
+          "share_pct": 9.2592592593
+        }
+      ]
+    },
+    {
+      "query": "growth",
+      "status": "success",
+      "rows": 29,
+      "truncated": false,
+      "statement_id": "01f1d06f-ffd8-1450-93cb-ccaef18f1446",
+      "sample": [
+        {
+          "skill": "rails",
+          "previous_mentions": 24,
+          "recent_mentions": 32,
+          "previous_total": 934,
+          "recent_total": 714,
+          "previous_share_pct": 2.5695931478,
+          "recent_share_pct": 4.4817927171,
+          "growth_pp": 1.9121995693,
+          "relative_growth_pct": 74.4164
+        },
+        {
+          "skill": "ai",
+          "previous_mentions": 110,
+          "recent_mentions": 95,
+          "previous_total": 934,
+          "recent_total": 714,
+          "previous_share_pct": 11.7773019272,
+          "recent_share_pct": 13.3053221289,
+          "growth_pp": 1.5280202017,
+          "relative_growth_pct": 12.9743
+        }
+      ]
+    },
+    {
+      "query": "salaries",
+      "status": "success",
+      "rows": 1,
+      "truncated": false,
+      "statement_id": "01f1d06f-fff5-1b85-819a-640b6aa1f887",
+      "sample": [
+        {
+          "comment_id": 49163907,
+          "month": "2026-08",
+          "company": "Detections.ai",
+          "source_url": "https://news.ycombinator.com/item?id=49163907",
+          "title": "base salary",
+          "minimum": 150000.0,
+          "maximum": 225000.0,
+          "currency": "USD",
+          "period": "annual",
+          "type": "base",
+          "original_text": "Expected annual base salary: US$150,000\u2013$225,000, or the Canadian-dollar equivalent, plus equity.",
+          "midpoint": 187500.0
+        }
+      ]
+    }
+  ],
+  "chat": {
+    "status": "success",
+    "question": "Which five skills grew fastest in share of hiring ads in July-September 2026 versus April-June 2026? Require at least 20 mentions each quarter. Show counts, shares and percentage-point increase.",
+    "plan": {
+      "sql": "SELECT * FROM (WITH ads AS (SELECT comment_id, CASE WHEN month BETWEEN '2026-04' AND '2026-06' THEN 'previous' WHEN month BETWEEN '2026-07' AND '2026-09' THEN 'recent' END AS period FROM workspace.hnjob.post_attributes WHERE status = 'success' AND is_hiring = TRUE AND month BETWEEN '2026-04' AND '2026-09'), totals AS (SELECT COUNT_IF(period = 'previous') AS previous_total, COUNT_IF(period = 'recent') AS recent_total FROM ads), mentions AS (SELECT s.skill, COUNT(DISTINCT CASE WHEN a.period = 'previous' THEN a.comment_id END) AS previous_mentions, COUNT(DISTINCT CASE WHEN a.period = 'recent' THEN a.comment_id END) AS recent_mentions FROM workspace.hnjob.post_skills AS s JOIN ads AS a ON s.comment_id = a.comment_id GROUP BY s.skill) SELECT m.skill, m.previous_mentions, m.recent_mentions, t.previous_total, t.recent_total, 100.0 * m.previous_mentions / NULLIF(t.previous_total, 0) AS previous_share_pct, 100.0 * m.recent_mentions / NULLIF(t.recent_total, 0) AS recent_share_pct, 100.0 * m.recent_mentions / NULLIF(t.recent_total, 0) - 100.0 * m.previous_mentions / NULLIF(t.previous_total, 0) AS growth_pp FROM mentions AS m CROSS JOIN totals AS t WHERE m.previous_mentions >= 20 AND m.recent_mentions >= 20 ORDER BY growth_pp DESC LIMIT 5) AS answer LIMIT 200",
+      "summary": "The query defines hiring ads (status='success' and is_hiring=true) in the two quarters April\u2011June 2026 (previous) and July\u2011September 2026 (recent). It counts distinct ad IDs per quarter for the denominator, then counts distinct ad IDs mentioning each skill in each quarter via post_skills. Shares are computed as mentions/total ads per quarter, and growth is the percentage\u2011point difference. Only skills with at least 20 mentions in both quarters are kept, and the top five by growth are returned.",
+      "clarification": null
+    },
+    "rows": [
+      {
+        "skill": "rails",
+        "previous_mentions": 24,
+        "recent_mentions": 32,
+        "previous_total": 934,
+        "recent_total": 714,
+        "previous_share_pct": 2.5695931478,
+        "recent_share_pct": 4.4817927171,
+        "growth_pp": 1.9121995693
+      },
+      {
+        "skill": "ai",
+        "previous_mentions": 110,
+        "recent_mentions": 95,
+        "previous_total": 934,
+        "recent_total": 714,
+        "previous_share_pct": 11.7773019272,
+        "recent_share_pct": 13.3053221289,
+        "growth_pp": 1.5280202017
+      },
+      {
+        "skill": "nodejs",
+        "previous_mentions": 76,
+        "recent_mentions": 69,
+        "previous_total": 934,
+        "recent_total": 714,
+        "previous_share_pct": 8.1370449679,
+        "recent_share_pct": 9.6638655462,
+        "growth_pp": 1.5268205783
+      },
+      {
+        "skill": "react native",
+        "previous_mentions": 28,
+        "recent_mentions": 30,
+        "previous_total": 934,
+        "recent_total": 714,
+        "previous_share_pct": 2.9978586724,
+        "recent_share_pct": 4.2016806723,
+        "growth_pp": 1.2038219999
+      },
+      {
+        "skill": "llms",
+        "previous_mentions": 32,
+        "recent_mentions": 32,
+        "previous_total": 934,
+        "recent_total": 714,
+        "previous_share_pct": 3.426124197,
+        "recent_share_pct": 4.4817927171,
+        "growth_pp": 1.0556685201
+      }
+    ],
+    "statement_id": "01f1d070-095b-1175-bc80-e017faab7ff2",
+    "reference_sql_parity": "passed"
+  },
+  "status": "success"
+}

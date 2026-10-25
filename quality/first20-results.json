@@ -1,0 +1,31 @@
+{
+  "scope": "First 20 nonempty available posts ordered by posted_at, comment_id",
+  "job_id": 453515354614183,
+  "run_id": 46984684545515,
+  "model": "databricks-gpt-oss-120b",
+  "ai_function": "ai_query",
+  "extraction_version": "post-fields-v1",
+  "country_review_version": "onsite-header-v1",
+  "input_table": "workspace.hnjob.test_first20_inputs",
+  "results_table": "workspace.hnjob.test_first20_results",
+  "validation_table": "workspace.hnjob.test_first20_validation",
+  "tested_posts": 20,
+  "successful_outputs": 20,
+  "provider_errors": 0,
+  "checks_passed": {
+    "countries_and_scope": 20,
+    "remote_policy": 20,
+    "seniority_assertions": 20,
+    "representative_named_skills": 20,
+    "salary_bounds_currency_and_period": 20,
+    "verbatim_evidence": 20,
+    "all_defined_checks": 20
+  },
+  "first_pass_country_checks": 19,
+  "corrections": [
+    "Used a focused Databricks AI header review to exclude background company offices from an onsite hiring location.",
+    "Normalized explicit management titles in hiring headers to leadership.",
+    "Left compensation type unspecified when a cash range does not explicitly say base salary."
+  ],
+  "limitations": "Development smoke test refined against the same 20 source posts. Skill checks cover representative explicitly named technologies, not exhaustive precision/recall. This is not held-out or corpus-wide accuracy validation. No full-corpus extraction was launched."
+}

@@ -1,0 +1,12 @@
+command: ['python', 'start.py']
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    valueFrom: sql-warehouse
+  - name: HNJOB_NAMESPACE
+    value: workspace.hnjob
+  - name: HNJOB_CHAT_MODEL
+    valueFrom: chat-model
+  - name: STREAMLIT_SERVER_ENABLE_CORS
+    value: 'false'
+  - name: STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION
+    value: 'false'

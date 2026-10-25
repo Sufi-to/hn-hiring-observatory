@@ -1,0 +1,18 @@
+:root { --ink: #192a35; --muted: #60717c; --accent: #d65a31; --line: #e3e8ec; }
+.block-container { max-width: 1480px; padding: 2.3rem 2.5rem 3rem; }
+[data-testid="stSidebar"] { border-right: 1px solid var(--line); }
+[data-testid="stSidebar"] .block-container { padding-top: 2rem; }
+h1 { letter-spacing: -1.9px; font-weight: 750 !important; line-height: 1.1 !important; }
+h2, h3 { letter-spacing: -.6px; }
+[data-testid="stMetric"] { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+[data-testid="stMetricValue"] { font-size: 2rem; letter-spacing: -1px; }
+[data-testid="stVerticalBlockBorderWrapper"] > div { border-color: var(--line) !important; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 2px; font-weight: 700; margin-bottom: 14px; }
+.brand { font-size: 23px; font-weight: 750; letter-spacing: -1px; margin-bottom: 4px; color: var(--ink); }
+.brand span { color: var(--accent); }
+.brand-sub { font-size: 11px; color: var(--muted); letter-spacing: 1.6px; margin-bottom: 24px; }
+.intro { font-size: 17px; line-height: 1.65; color: var(--muted); max-width: 770px; margin-bottom: 26px; }
+.source-note { border-top: 1px solid var(--line); padding-top: 18px; color: var(--muted); font-size: 12px; margin-top: 30px; }
+[data-testid="stRadio"] label { font-size: 14px; }
+[data-testid="stDataFrame"] { border-radius: 10px; }
+@media (max-width: 780px) { .block-container { padding: 1.5rem 1rem; } h1 { font-size: 2rem !important; } }

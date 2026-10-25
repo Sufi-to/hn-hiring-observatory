@@ -1,0 +1,188 @@
+{
+  "attempted_at": "2026-10-25T12:11:17.048766+00:00",
+  "sql_file": "sql/fastest_growing_skills.sql",
+  "executed_sql": "-- Compare Q3 2026 with Q2 2026; October is a partial month.\n-- Rank by growth in the share of hiring posts mentioning a skill.\nWITH posts AS (\n  SELECT comment_id,\n         CASE WHEN month < '2026-07' THEN 'previous' ELSE 'recent' END AS period\n  FROM workspace.hnjob.post_attributes\n  WHERE status = 'success'\n    AND is_hiring = true\n    AND month BETWEEN '2026-04' AND '2026-09'\n), totals AS (\n  SELECT count(DISTINCT CASE WHEN period = 'previous' THEN comment_id END) AS previous_total,\n         count(DISTINCT CASE WHEN period = 'recent' THEN comment_id END) AS recent_total\n  FROM posts\n), mentions AS (\n  SELECT s.skill,\n         count(DISTINCT CASE WHEN p.period = 'previous' THEN p.comment_id END) AS previous_mentions,\n         count(DISTINCT CASE WHEN p.period = 'recent' THEN p.comment_id END) AS recent_mentions\n  FROM workspace.hnjob.post_skills s\n  JOIN posts p ON p.comment_id = s.comment_id\n  GROUP BY s.skill\n), shares AS (\n  SELECT m.*, t.previous_total, t.recent_total,\n         100.0 * m.previous_mentions / nullif(t.previous_total, 0) AS previous_share_pct,\n         100.0 * m.recent_mentions / nullif(t.recent_total, 0) AS recent_share_pct\n  FROM mentions m CROSS JOIN totals t\n  WHERE m.previous_mentions >= 20 AND m.recent_mentions >= 20\n)\nSELECT skill,\n       previous_mentions, recent_mentions,\n       previous_total, recent_total,\n       round(previous_share_pct, 2) AS previous_share_pct,\n       round(recent_share_pct, 2) AS recent_share_pct,\n       round(recent_share_pct - previous_share_pct, 2) AS growth_percentage_points,\n       round(100.0 * (recent_share_pct / nullif(previous_share_pct, 0) - 1), 1) AS relative_growth_pct\nFROM shares\nWHERE recent_share_pct > previous_share_pct\nORDER BY recent_share_pct - previous_share_pct DESC, recent_mentions DESC, skill\nLIMIT 15;\n",
+  "sql_sha256": "b31fa2b14f8541013761e688058910d7c2faec7de4391bec16a35067eec9ad07",
+  "profile": "tom",
+  "warehouse_id": "616681d29d918fc1",
+  "periods": {
+    "previous": [
+      "2026-04",
+      "2026-06"
+    ],
+    "recent": [
+      "2026-07",
+      "2026-09"
+    ]
+  },
+  "ranking": "percentage-point increase in share of distinct hiring advertisements",
+  "minimum_mentions_each_period": 20,
+  "results": [
+    {
+      "skill": "rails",
+      "previous_mentions": "24",
+      "recent_mentions": "32",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "2.57",
+      "recent_share_pct": "4.48",
+      "growth_percentage_points": "1.91",
+      "relative_growth_pct": "74.4"
+    },
+    {
+      "skill": "ai",
+      "previous_mentions": "110",
+      "recent_mentions": "95",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "11.78",
+      "recent_share_pct": "13.31",
+      "growth_percentage_points": "1.53",
+      "relative_growth_pct": "13.0"
+    },
+    {
+      "skill": "nodejs",
+      "previous_mentions": "76",
+      "recent_mentions": "69",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "8.14",
+      "recent_share_pct": "9.66",
+      "growth_percentage_points": "1.53",
+      "relative_growth_pct": "18.8"
+    },
+    {
+      "skill": "react native",
+      "previous_mentions": "28",
+      "recent_mentions": "30",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.00",
+      "recent_share_pct": "4.20",
+      "growth_percentage_points": "1.20",
+      "relative_growth_pct": "40.2"
+    },
+    {
+      "skill": "llms",
+      "previous_mentions": "32",
+      "recent_mentions": "32",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.43",
+      "recent_share_pct": "4.48",
+      "growth_percentage_points": "1.06",
+      "relative_growth_pct": "30.8"
+    },
+    {
+      "skill": "c++",
+      "previous_mentions": "39",
+      "recent_mentions": "37",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "4.18",
+      "recent_share_pct": "5.18",
+      "growth_percentage_points": "1.01",
+      "relative_growth_pct": "24.1"
+    },
+    {
+      "skill": "kubernetes",
+      "previous_mentions": "79",
+      "recent_mentions": "67",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "8.46",
+      "recent_share_pct": "9.38",
+      "growth_percentage_points": "0.93",
+      "relative_growth_pct": "10.9"
+    },
+    {
+      "skill": "ci/cd",
+      "previous_mentions": "30",
+      "recent_mentions": "29",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.21",
+      "recent_share_pct": "4.06",
+      "growth_percentage_points": "0.85",
+      "relative_growth_pct": "26.5"
+    },
+    {
+      "skill": "graphql",
+      "previous_mentions": "29",
+      "recent_mentions": "28",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.10",
+      "recent_share_pct": "3.92",
+      "growth_percentage_points": "0.82",
+      "relative_growth_pct": "26.3"
+    },
+    {
+      "skill": "sql",
+      "previous_mentions": "28",
+      "recent_mentions": "27",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.00",
+      "recent_share_pct": "3.78",
+      "growth_percentage_points": "0.78",
+      "relative_growth_pct": "26.1"
+    },
+    {
+      "skill": "gcp",
+      "previous_mentions": "40",
+      "recent_mentions": "36",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "4.28",
+      "recent_share_pct": "5.04",
+      "growth_percentage_points": "0.76",
+      "relative_growth_pct": "17.7"
+    },
+    {
+      "skill": "docker",
+      "previous_mentions": "52",
+      "recent_mentions": "45",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "5.57",
+      "recent_share_pct": "6.30",
+      "growth_percentage_points": "0.74",
+      "relative_growth_pct": "13.2"
+    },
+    {
+      "skill": "postgresql",
+      "previous_mentions": "167",
+      "recent_mentions": "131",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "17.88",
+      "recent_share_pct": "18.35",
+      "growth_percentage_points": "0.47",
+      "relative_growth_pct": "2.6"
+    },
+    {
+      "skill": "redis",
+      "previous_mentions": "33",
+      "recent_mentions": "27",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "3.53",
+      "recent_share_pct": "3.78",
+      "growth_percentage_points": "0.25",
+      "relative_growth_pct": "7.0"
+    },
+    {
+      "skill": "azure",
+      "previous_mentions": "25",
+      "recent_mentions": "20",
+      "previous_total": "934",
+      "recent_total": "714",
+      "previous_share_pct": "2.68",
+      "recent_share_pct": "2.80",
+      "growth_percentage_points": "0.12",
+      "relative_growth_pct": "4.6"
+    }
+  ],
+  "status": "success"
+}

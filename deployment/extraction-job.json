@@ -1,0 +1,20 @@
+{
+  "name": "hnjob-extract-manual",
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 14400,
+  "performance_target": "STANDARD",
+  "tasks": [{
+    "task_key": "extract",
+    "disable_auto_optimization": true,
+    "notebook_task": {
+      "notebook_path": "/Users/tomastekle20@gmail.com/hnjob/02_extract_roles",
+      "source": "WORKSPACE",
+      "base_parameters": {
+        "catalog": "workspace", "schema": "hnjob",
+        "model": "databricks-gpt-oss-120b", "batch_size": "20", "max_batches": "1", "test_limit": "20"
+      }
+    },
+    "max_retries": 0,
+    "timeout_seconds": 14400
+  }]
+}

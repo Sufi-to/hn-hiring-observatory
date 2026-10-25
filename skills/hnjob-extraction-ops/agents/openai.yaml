@@ -1,0 +1,4 @@
+interface:
+  display_name: "HN Job Extraction Operations"
+  short_description: "Evaluate models and resume Databricks extraction"
+  default_prompt: "Use $hnjob-extraction-ops to check extraction progress and resume only the work that remains."

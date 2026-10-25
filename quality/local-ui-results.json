@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-10-25T13:41:55.474777+00:00",
+  "pages": [
+    {
+      "page": "Overview",
+      "status": "success",
+      "errors": [],
+      "charts": 5,
+      "tables": 0,
+      "metrics": [
+        {
+          "label": "Hiring advertisements",
+          "value": "3,695"
+        },
+        {
+          "label": "Ads allowing remote work",
+          "value": "53.0%"
+        },
+        {
+          "label": "Ads with numeric compensation",
+          "value": "29.4%"
+        },
+        {
+          "label": "Months in view",
+          "value": "12"
+        }
+      ]
+    },
+    {
+      "page": "Skills",
+      "status": "success",
+      "errors": [],
+      "charts": 2,
+      "tables": 1,
+      "metrics": []
+    },
+    {
+      "page": "Compensation",
+      "status": "success",
+      "errors": [],
+      "charts": 1,
+      "tables": 1,
+      "metrics": [
+        {
+          "label": "Comparable ranges shown",
+          "value": "1"
+        },
+        {
+          "label": "Median range midpoint \u00b7 USD",
+          "value": "187,500"
+        },
+        {
+          "label": "Distinct advertisements shown",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "page": "Explore ads",
+      "status": "success",
+      "errors": [],
+      "charts": 0,
+      "tables": 9,
+      "metrics": []
+    },
+    {
+      "page": "Ask the data",
+      "status": "success",
+      "errors": [],
+      "charts": 0,
+      "tables": 0,
+      "metrics": []
+    },
+    {
+      "page": "Data coverage",
+      "status": "success",
+      "errors": [],
+      "charts": 0,
+      "tables": 1,
+      "metrics": [
+        {
+          "label": "Source posts processed",
+          "value": "40,065"
+        },
+        {
+          "label": "Hiring ads classified",
+          "value": "39,596"
+        },
+        {
+          "label": "Incomplete outputs",
+          "value": "0"
+        },
+        {
+          "label": "Monthly threads",
+          "value": "82"
+        },
+        {
+          "label": "Evidence quotes to review",
+          "value": "153"
+        },
+        {
+          "label": "Country contexts to review",
+          "value": "30"
+        },
+        {
+          "label": "Invalid salary-bound posts",
+          "value": "4"
+        }
+      ]
+    }
+  ],
+  "empty_search_passed": true,
+  "status": "success",
+  "method": "Streamlit AppTest with the real Databricks backend; not a visual browser screenshot test"
+}

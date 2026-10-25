@@ -1,0 +1,17 @@
+{
+  "name": "hnjob-ingest-manual",
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 14400,
+  "performance_target": "STANDARD",
+  "tasks": [{
+    "task_key": "ingest",
+    "disable_auto_optimization": true,
+    "notebook_task": {
+      "notebook_path": "/Users/tomastekle20@gmail.com/hnjob/01_ingest_hn",
+      "source": "WORKSPACE",
+      "base_parameters": {"catalog": "workspace", "schema": "hnjob", "mode": "backfill", "max_threads": "0"}
+    },
+    "max_retries": 0,
+    "timeout_seconds": 14400
+  }]
+}

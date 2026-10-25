@@ -1,0 +1,22 @@
+{
+  "namespace": "workspace.hnjob",
+  "job_id": 624810792646052,
+  "job_run_id": 835977841598627,
+  "notebook_task_run_id": 611591134455095,
+  "ingestion_run_id": "78338cd0-7a9d-4c05-8e88-02cca93637bf",
+  "result": "SUCCESS",
+  "first_month": "2020-01",
+  "last_month": "2026-10",
+  "months": 82,
+  "threads": 82,
+  "expected_direct_comments": 43450,
+  "retrieved_comment_records": 43450,
+  "available_comment_records": 40066,
+  "unavailable_deleted_or_dead": 3384,
+  "nonempty_candidate_ads": 40065,
+  "failed_fetches": 0,
+  "pending_fetches": 0,
+  "duplicate_comment_ids": 0,
+  "months_missing_or_with_multiple_threads": 0,
+  "note": "Candidate ads are not AI-confirmed hiring advertisements. October 2026 is partial. Deleted/dead/unavailable historical text cannot be reconstructed."
+}

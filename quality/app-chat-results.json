@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-10-25T12:35:17.021954+00:00",
+  "checks": [
+    {
+      "kind": "sources",
+      "question": "Show five recent remote Rust ads with HN links, from October 2025 through September 2026.",
+      "plan": {
+        "sql": "SELECT * FROM (WITH remote_ads AS (SELECT pa.comment_id, pa.month, pa.posted_at, pa.company, pa.source_url FROM workspace.hnjob.post_attributes AS pa WHERE pa.status = 'success' AND pa.is_hiring = TRUE AND pa.month BETWEEN '2025-10' AND '2026-09' AND ARRAY_CONTAINS(pa.remote_policy, 'remote')), rust_ads AS (SELECT DISTINCT ra.comment_id, ra.month, ra.posted_at, ra.company, ra.source_url FROM remote_ads AS ra JOIN workspace.hnjob.post_skills AS ps ON ps.comment_id = ra.comment_id WHERE ps.skill = 'rust') SELECT comment_id, source_url, posted_at, company, month FROM rust_ads ORDER BY month DESC, posted_at DESC LIMIT 5) AS answer LIMIT 200",
+        "summary": "The query first filters post_attributes for successful hiring ads between Oct 2025 and Sep 2026 that list a remote policy (array_contains remote_policy, 'remote'). It then joins to post_skills to keep only ads that mention the skill 'rust'. Distinct ads are ordered by most recent month and posted_at, and the top five rows (including HN source_url) are returned.",
+        "clarification": null
+      },
+      "rows": [
+        {
+          "comment_id": 49615973,
+          "source_url": "https://news.ycombinator.com/item?id=49615973",
+          "posted_at": "2026-09-08T19:49:58.000Z",
+          "company": "Close",
+          "month": "2026-09"
+        },
+        {
+          "comment_id": 49595476,
+          "source_url": "https://news.ycombinator.com/item?id=49595476",
+          "posted_at": "2026-09-07T08:19:00.000Z",
+          "company": "Lucia",
+          "month": "2026-09"
+        },
+        {
+          "comment_id": 49541874,
+          "source_url": "https://news.ycombinator.com/item?id=49541874",
+          "posted_at": "2026-09-02T20:18:15.000Z",
+          "company": "SentiLink",
+          "month": "2026-09"
+        },
+        {
+          "comment_id": 49539168,
+          "source_url": "https://news.ycombinator.com/item?id=49539168",
+          "posted_at": "2026-09-02T16:59:23.000Z",
+          "company": "Senzing",
+          "month": "2026-09"
+        },
+        {
+          "comment_id": 49533651,
+          "source_url": "https://news.ycombinator.com/item?id=49533651",
+          "posted_at": "2026-09-02T08:58:04.000Z",
+          "company": "Rerun",
+          "month": "2026-09"
+        }
+      ],
+      "status": "success"
+    },
+    {
+      "kind": "unsupported",
+      "question": "How many of these advertised jobs were actually filled?",
+      "plan": {
+        "sql": null,
+        "summary": "The available data only includes advertised hiring posts and their attributes (status, skills, salaries, etc.). There is no column or table that records whether an advertised job was actually filled, so the number of filled positions cannot be derived from the current dataset.",
+        "clarification": "Would you like information on the number of advertised hiring posts, skill shares, salary details, or another metric that can be computed from the available data?"
+      },
+      "status": "success"
+    }
+  ]
+}

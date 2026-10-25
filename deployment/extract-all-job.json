@@ -1,0 +1,14 @@
+{
+  "name": "hnjob-extract-all-posts",
+  "max_concurrent_runs": 1,
+  "performance_target": "STANDARD",
+  "timeout_seconds": 14400,
+  "tasks": [{
+    "task_key": "extract_all", "disable_auto_optimization": true,
+    "max_retries": 0, "timeout_seconds": 14400,
+    "notebook_task": {
+      "notebook_path": "/Users/tomastekle20@gmail.com/hnjob/05_extract_all_posts",
+      "source": "WORKSPACE"
+    }
+  }]
+}

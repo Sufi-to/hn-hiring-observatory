@@ -1,0 +1,16 @@
+{
+  "name": "hnjob-test-first20-ai-functions",
+  "max_concurrent_runs": 1,
+  "performance_target": "STANDARD",
+  "timeout_seconds": 3600,
+  "tasks": [{
+    "task_key": "extract_first20",
+    "disable_auto_optimization": true,
+    "max_retries": 0,
+    "timeout_seconds": 3600,
+    "notebook_task": {
+      "notebook_path": "/Users/tomastekle20@gmail.com/hnjob/03_test_first20_ai_functions",
+      "source": "WORKSPACE"
+    }
+  }]
+}

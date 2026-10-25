@@ -1,0 +1,90 @@
+bundle:
+  name: hnjob-observatory
+
+variables:
+  app_name:
+    description: Databricks App name
+    default: hnjob-${workspace.current_user.domain_friendly_name}
+  warehouse_id:
+    description: Existing HN analytics SQL warehouse
+    default: 616681d29d918fc1
+
+sync:
+  paths:
+    - app
+  exclude:
+    - '**/__pycache__/**'
+    - '**/*.pyc'
+
+resources:
+  apps:
+    hnjob:
+      name: ${var.app_name}
+      description: HN hiring market analytics, source explorer and SQL assistant since 2020.
+      source_code_path: ./app
+      config:
+        command: [python, start.py]
+        env:
+          - name: DATABRICKS_WAREHOUSE_ID
+            value_from: sql-warehouse
+          - name: HNJOB_NAMESPACE
+            value: workspace.hnjob
+          - name: HNJOB_CHAT_MODEL
+            value_from: chat-model
+          - name: STREAMLIT_SERVER_ENABLE_CORS
+            value: 'false'
+          - name: STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION
+            value: 'false'
+      resources:
+        - name: sql-warehouse
+          sql_warehouse:
+            id: ${var.warehouse_id}
+            permission: CAN_USE
+        - name: chat-model
+          serving_endpoint:
+            name: databricks-gpt-oss-120b
+            permission: CAN_QUERY
+        - name: post-attributes
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.post_attributes
+            permission: SELECT
+        - name: post-skills
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.post_skills
+            permission: SELECT
+        - name: post-countries
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.post_countries
+            permission: SELECT
+        - name: post-salaries
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.post_salaries
+            permission: SELECT
+        - name: processing-coverage
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.post_processing_coverage
+            permission: SELECT
+        - name: ingestion-coverage
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: workspace.hnjob.ingestion_coverage
+            permission: SELECT
+      permissions:
+        - user_name: tomastekle20@gmail.com
+          level: CAN_MANAGE
+
+targets:
+  dev:
+    mode: development
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-208a6ca5-ab77.cloud.databricks.com
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      app_name: hn-hiring-observatory

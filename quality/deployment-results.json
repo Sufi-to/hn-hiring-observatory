@@ -1,0 +1,45 @@
+{
+  "app_name": "hn-hiring-observatory",
+  "url": "https://hn-hiring-observatory-7474647140884875.aws.databricksapps.com",
+  "deployment_id": "01f1d07ba3de168693283ca3dd1ecd5a",
+  "deployment_state": "SUCCEEDED",
+  "app_state": "RUNNING",
+  "compute_state": "ACTIVE",
+  "service_principal_client_id": "7a408b17-b2a3-4826-b339-1dec31b61312",
+  "source_code_path": "/Workspace/Users/tomastekle20@gmail.com/.bundle/hnjob-observatory/prod/files/app",
+  "runtime_verification": {
+    "data": "passed",
+    "chat": "passed",
+    "counts": {
+      "execution_identity": "7a408b17-b2a3-4826-b339-1dec31b61312",
+      "posts": 40065,
+      "hiring_ads": 39596,
+      "first_month": "2020-01",
+      "last_month": "2026-10",
+      "skill_mentions": 219899,
+      "country_mentions": 39419,
+      "salary_ranges": 6019,
+      "processing_months": 82,
+      "ingestion_months": 82
+    },
+    "chat_reference_parity": "passed"
+  },
+  "validation": {
+    "strict_bundle": "passed",
+    "python_unit_tests": 10,
+    "apps_validate": "CLI supports Node projects only; Python validation used tests, compilation and deployed runtime checks"
+  },
+  "approved_deployer": "tomastekle20@gmail.com",
+  "profile": "tom",
+  "http_verification": {
+    "health": {
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8"
+    },
+    "app_page": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    }
+  },
+  "verified_at": "2026-10-25T13:57:33.399769+00:00"
+}
