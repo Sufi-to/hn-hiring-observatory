@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-10-26T20:11:32.750740+00:00",
+  "status": "success",
+  "first_screen_seconds": 2.648242195000421,
+  "cached_screen_seconds": 0.3094902519997049,
+  "suggestions": [
+    "typescript",
+    "postgresql",
+    "react"
+  ],
+  "evidence_links": 9
+}

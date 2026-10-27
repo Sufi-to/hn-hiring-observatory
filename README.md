@@ -38,6 +38,11 @@ technology demand and for analysts who want to verify the source behind a chart.
 
 ## What you can do
 
+**Local pilot: Your Next Skill.** Enter skills you know to discover up to three
+technologies mentioned alongside them, with transparent counts, recent trends
+and original ads. [Pilot method and checklist](docs/next-skill-pilot.md).
+This feature is available in the local checkout; the deployed app is unchanged.
+
 | Workflow | What the application provides |
 | --- | --- |
 | Follow the market | Monthly hiring activity and filters for date, country, work policy and seniority |

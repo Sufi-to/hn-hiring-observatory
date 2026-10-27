@@ -1,0 +1,139 @@
+{
+  "checked_at": "2026-10-26T20:09:45.340583+00:00",
+  "status": "success",
+  "cases": [
+    {
+      "skills": [
+        "python",
+        "sql"
+      ],
+      "filters": {},
+      "query_seconds": [
+        5.537376109999968,
+        1.5172453169998334
+      ],
+      "reference_parity": "passed",
+      "statement_id": "01f1d179-49ab-13e7-a364-0b93543fdc3f",
+      "results": [
+        {
+          "skill": "typescript",
+          "recent_mentions": 87,
+          "previous_mentions": 122,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 189,
+          "previous_total": 267,
+          "recent_share_pct": 46.0317460317,
+          "previous_share_pct": 45.6928838951
+        },
+        {
+          "skill": "postgresql",
+          "recent_mentions": 64,
+          "previous_mentions": 89,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 189,
+          "previous_total": 267,
+          "recent_share_pct": 33.8624338624,
+          "previous_share_pct": 33.3333333333
+        },
+        {
+          "skill": "react",
+          "recent_mentions": 64,
+          "previous_mentions": 104,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 189,
+          "previous_total": 267,
+          "recent_share_pct": 33.8624338624,
+          "previous_share_pct": 38.9513108614
+        }
+      ]
+    },
+    {
+      "skills": [
+        "python",
+        "docker"
+      ],
+      "filters": {
+        "policy": "remote"
+      },
+      "query_seconds": [
+        5.002764578000097,
+        1.4704515530002027
+      ],
+      "reference_parity": "passed",
+      "statement_id": "01f1d179-50f7-153e-9adf-6aa21fbbf66d",
+      "results": [
+        {
+          "skill": "typescript",
+          "recent_mentions": 47,
+          "previous_mentions": 64,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 107,
+          "previous_total": 143,
+          "recent_share_pct": 43.9252336449,
+          "previous_share_pct": 44.7552447552
+        },
+        {
+          "skill": "postgresql",
+          "recent_mentions": 45,
+          "previous_mentions": 52,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 107,
+          "previous_total": 143,
+          "recent_share_pct": 42.0560747664,
+          "previous_share_pct": 36.3636363636
+        },
+        {
+          "skill": "react",
+          "recent_mentions": 36,
+          "previous_mentions": 55,
+          "alongside_0": 1,
+          "alongside_1": 1,
+          "recent_total": 107,
+          "previous_total": 143,
+          "recent_share_pct": 33.6448598131,
+          "previous_share_pct": 38.4615384615
+        }
+      ]
+    },
+    {
+      "skills": [
+        "rust"
+      ],
+      "filters": {
+        "country": "Canada",
+        "seniority": "senior"
+      },
+      "query_seconds": [
+        3.5448406650002653,
+        1.062721717000386
+      ],
+      "reference_parity": "passed",
+      "statement_id": "01f1d179-55e8-1695-833d-5c2365d33425",
+      "results": [
+        {
+          "skill": null,
+          "recent_mentions": null,
+          "previous_mentions": null,
+          "alongside_0": null,
+          "recent_total": 0,
+          "previous_total": 1,
+          "recent_share_pct": null,
+          "previous_share_pct": null
+        }
+      ]
+    }
+  ],
+  "periods": {
+    "recent_start": "2026-07",
+    "recent_end": "2026-09",
+    "prior_start": "2026-04",
+    "prior_end": "2026-06",
+    "recent_complete": true,
+    "prior_complete": true
+  }
+}

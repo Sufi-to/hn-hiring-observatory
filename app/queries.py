@@ -25,6 +25,10 @@ def _query_for(name, ns, filters=None, **options):
     ns = validate_namespace(ns)
     filters = filters or {}
     source, params = filtered(ns, filters)
+    if name in {'next_skills', 'next_skill_evidence'}:
+        from next_skill import recommendation_query
+        source, params = filtered(ns, filters, include_dates=False)
+        return recommendation_query(name, ns, source, params, options)
     if name == 'metadata':
         return f"""SELECT count(*) AS total_posts, count(DISTINCT month) AS months,
           min(month) AS first_month, max(month) AS last_month,

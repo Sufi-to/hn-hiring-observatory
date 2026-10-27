@@ -3,6 +3,9 @@ from datetime import date
 from pathlib import Path
 import json
 import math
+import logging
+import time
+import uuid
 import os
 import sys
 
@@ -18,6 +21,8 @@ st.set_page_config(page_title='HN Hiring Observatory', page_icon='◈', layout='
 st.markdown('<style>' + Path(__file__).with_name('style.css').read_text() + '</style>', unsafe_allow_html=True)
 COLORS = ['#247B83', '#D65A31', '#5264A0', '#A37733', '#56715A', '#976681', '#6B8090', '#A65C55']
 LOCAL = os.environ.get('HNJOB_LOCAL') == 'true'
+QUERY_LOG = logging.getLogger('hnjob.queries')
+QUERY_LOG.setLevel(logging.INFO)
 
 
 @st.cache_resource
@@ -27,7 +32,13 @@ def warehouse():
 
 @st.cache_data(ttl=300, show_spinner=False)
 def run_query(statement, params, generation=0):
-    result = warehouse().query(statement, params)
+    started = time.monotonic()
+    try:
+        result = warehouse().query(statement, params)
+    except Exception as exc:
+        QUERY_LOG.error('query_failed duration_seconds=%.3f error_type=%s', time.monotonic() - started, type(exc).__name__)
+        raise
+    QUERY_LOG.info('query_complete statement_id=%s duration_seconds=%.3f', result.statement_id, time.monotonic() - started)
     # Keep the cache independent of backend class identity across Streamlit reloads.
     # Cache data only, not the result wrapper or any transport/runtime state.
     return {'frame': result.frame, 'statement_id': str(result.statement_id),
@@ -41,7 +52,9 @@ def load(name, filters=None, **options):
             result = run_query(statement, params, st.session_state.get('generation', 0))
     except Exception as exc:
         st.error('The data service could not complete this query.')
-        st.caption(str(exc)[:900])
+        reference = uuid.uuid4().hex[:12]
+        logging.getLogger('hnjob.queries').error('query_failed query=%s reference=%s error_type=%s', name, reference, type(exc).__name__)
+        st.caption('Please retry. If this continues, share reference ' + reference + ' with the operator.')
         if st.button('Retry data connection', key='retry_' + name):
             st.cache_data.clear(); st.rerun()
         st.stop()
@@ -113,12 +126,12 @@ default_start = max(months[0], str(pd.Period(default_end, freq='M') - 11))
 
 with st.sidebar:
     st.markdown('<div class="brand">HN<span> / </span>Observatory</div><div class="brand-sub">THE HIRING SIGNAL</div>', unsafe_allow_html=True)
-    page = st.radio('Workspace', ['Overview', 'Skills', 'Compensation', 'Explore ads', 'Ask the data', 'Data coverage'], label_visibility='collapsed')
+    page = st.radio('Workspace', ['Overview', 'Your Next Skill', 'Skills', 'Compensation', 'Explore ads', 'Ask the data', 'Data coverage'], label_visibility='collapsed')
     st.divider()
     st.caption('FILTER THE MARKET')
-    start = st.selectbox('From month', months, index=months.index(default_start))
+    start = st.selectbox('From month', months, index=months.index(default_start), disabled=page == 'Your Next Skill')
     ends = [m for m in months if m >= start]
-    end = st.selectbox('Through month', ends, index=ends.index(default_end) if default_end in ends else len(ends)-1)
+    end = st.selectbox('Through month', ends, index=ends.index(default_end) if default_end in ends else len(ends)-1, disabled=page == 'Your Next Skill')
     countries = sorted(options.loc[options.kind == 'country', 'value'].dropna().tolist())
     country = st.selectbox('Country', ['All countries'] + countries)
     policy = st.selectbox('Work policy', ['All policies', 'remote', 'hybrid', 'onsite', 'unspecified'])
@@ -140,9 +153,9 @@ with st.sidebar:
         st.caption(f"LOCAL REVIEW · profile {os.environ.get('DATABRICKS_CONFIG_PROFILE', 'unset')}")
 
 selected_coverage = coverage[coverage.month.between(start, end)]
-if selected_coverage.incomplete_posts.gt(0).any() or len(selected_coverage) != len(pd.period_range(start, end, freq='M')):
+if page != 'Your Next Skill' and (selected_coverage.incomplete_posts.gt(0).any() or len(selected_coverage) != len(pd.period_range(start, end, freq='M'))):
     st.warning('The selected range has incomplete processing or missing months. Charts describe the available subset.')
-if selected_coverage.partial_month.fillna(False).any():
+if page != 'Your Next Skill' and selected_coverage.partial_month.fillna(False).any():
     st.info('This selection includes a partial month. It is excluded from automatic skill-growth comparisons.')
 
 period_label = f'{start} → {end}'
@@ -423,6 +436,9 @@ def health_page():
     sql_details('coverage')
 
 
-{'Overview': overview, 'Skills': skills_page, 'Compensation': compensation,
+from next_skill_ui import render as render_next_skill
+
+{'Your Next Skill': lambda: render_next_skill(load, sql_details, coverage, metadata, skill_options, filters),
+ 'Overview': overview, 'Skills': skills_page, 'Compensation': compensation,
  'Explore ads': explorer, 'Ask the data': chat_page, 'Data coverage': health_page}[page]()
 st.markdown('<div class="source-note">HN HIRING OBSERVATORY · Official monthly threads since 2020 · Extracted attributes are AI-derived · Counts describe advertisements, not vacancies or the entire tech labor market.</div>', unsafe_allow_html=True)
